@@ -1,0 +1,27 @@
+{
+    "name": "xiao/light",
+    "config": {
+        "vendor-dir": "vendor",
+        "secure-http": false
+    },
+    "authors": [
+        {
+            "name": "xiao",
+            "email": "xx19931215@gmail.com"
+        }
+    ],
+    "require": {
+        "nikic/fast-route": "^1.0",
+        "symfony/http-foundation": "^3.2",
+        "foil/foil": "^0.6",
+        "filp/whoops": "^2.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Light\\": "light/src"
+        },
+        "file": [
+            "light/Support/functions.php"
+        ]
+    }
+}
