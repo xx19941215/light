@@ -11,5 +11,6 @@ class HttpHandler
     public function __construct(HttpApp $app)
     {
         $this->app = $app;
+        
     }
 }

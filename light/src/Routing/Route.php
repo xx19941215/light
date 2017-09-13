@@ -40,4 +40,9 @@ class Route
         $this->params = $data['params'];
         $this->pattern = $data['pattern'];
     }
+
+    public function setParams($params)
+    {
+        $this->params = $params;
+    }
 }

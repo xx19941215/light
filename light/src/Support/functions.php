@@ -29,3 +29,8 @@ function app($type = 'http', $baseDir = '')
         return $app;
     }
 }
+
+function prop($arr, $key, $default = '')
+{
+    return isset($arr[$key]) ? $arr[$key] : $default;
+}
