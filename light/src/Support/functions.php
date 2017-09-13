@@ -33,4 +33,5 @@ function app($type = 'http', $baseDir = '')
 function prop($arr, $key, $default = '')
 {
     return isset($arr[$key]) ? $arr[$key] : $default;
+
 }

@@ -14,3 +14,4 @@ $request = new \Light\Http\Request(
 
 $response = app($baseDir, 'http')->handle($request);
 $response->send();
+
