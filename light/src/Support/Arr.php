@@ -5,12 +5,12 @@ class Arr
 {
     public static function accessible($value)
     {
-        return is_array($value) || $value instanceof ArrayAccess;
+        return is_array($value) || $value instanceof \ArrayAccess;
     }
 
-    public static function existes($array, $key)
+    public static function exists($array, $key)
     {
-        if ($array instanceof ArrayAccess) {
+        if ($array instanceof \ArrayAccess) {
             return $array->offsetExists($key);
         }
 
@@ -32,10 +32,10 @@ class Arr
         }
 
         foreach (explode('.', $key) as $segment) {
-            if (static::accessible($array) && static::existes($array, $segment)) {
+            if (static::accessible($array) && static::exists($array, $segment)) {
                 $array = $array[$segment];
             } else {
-                return value($defalut);
+                return value($default);
             }
         }
 
@@ -74,11 +74,11 @@ class Arr
      
     public static function has($array, $key) : boolean
     {
-        if (is_null($keys)) {
+        if (is_null($key)) {
             return false;
         }
 
-        $keys = (array) $keys;
+        $keys = (array) $key;
 
         if (! $array) {
             return false;

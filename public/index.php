@@ -1,7 +1,7 @@
 <?php
 $baseDir = realpath(__DIR__ . '/../');
 
-require $baseDir . 'vendor/autoload.php';
+require $baseDir . '/vendor/autoload.php';
 
 $request = new \Light\Http\Request(
     $_GET,

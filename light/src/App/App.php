@@ -28,4 +28,14 @@ class App
         $this->baseDir = $baseDir;
         $this->config = $config;
     }
+
+    public function getBaseDir()
+    {
+        return $this->baseDir;
+    }
+
+    public function getConfig()
+    {
+        return $this->config;
+    }
 }

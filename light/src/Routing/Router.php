@@ -13,7 +13,7 @@ class Router
     protected $site;
     protected $app;
     protected $access;
-    
+    protected $routeCollectorMap;
     protected $routeMap = [];
     protected $dispatchDataMap = [];
 
@@ -21,6 +21,12 @@ class Router
     {
         $this->siet = $site;
         return $this;
+    }
+
+    public function load($data)
+    {
+        $this->routeMap = $data['routeMap'];
+        $this->dispatchDataMap = $data['dispatchDataMap'];
     }
 
     public function app($app)

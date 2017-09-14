@@ -67,6 +67,6 @@ class ConfigManager
 
     protected function getCompiledPath()
     {
-        return $this->bashDir . '/cache/setting-config-' . $this->type . '.php';
+        return $this->baseDir . '/cache/setting-config-' . $this->type . '.php';
     }
 }

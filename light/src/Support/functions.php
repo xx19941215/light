@@ -17,7 +17,7 @@ function obj($obj)
     return $obj;
 }
 
-function app($type = 'http', $baseDir = '')
+function app($baseDir = '', $type = 'http')
 {
     static $app;
     if ($app) {
@@ -25,7 +25,7 @@ function app($type = 'http', $baseDir = '')
     }
 
     if ($type == 'http') {
-        $app =  new \Light\App\HttpApp($baseDir);
+        $app =  new \Light\App\Http\HttpApp($baseDir);
         return $app;
     }
 }
@@ -33,5 +33,11 @@ function app($type = 'http', $baseDir = '')
 function prop($arr, $key, $default = '')
 {
     return isset($arr[$key]) ? $arr[$key] : $default;
-
 }
+
+function dd($debug)
+{
+    var_dump($debug);
+    exit;
+}
+

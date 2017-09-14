@@ -3,7 +3,7 @@ $baseDir = $this->get('baseDir');
 
 $this
     ->set('debug', false)
-    ->set('baseHost', 'icl.xiao')
+    ->set('baseHost', 'light.xiao')
     ->set('local', [
         'db' => [
             'host' => 'db',

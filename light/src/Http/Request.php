@@ -1,6 +1,7 @@
 <?php
 namespace Light\Http;
 
+use Light\Routing\Route;
 use Symfony\Component\HttpFoundation\Request as SymfonyRquest;
 
 class Request extends SymfonyRquest
@@ -16,5 +17,10 @@ class Request extends SymfonyRquest
     public function getRoute()
     {
         return $this->route;
+    }
+
+    public function getSite()
+    {
+        $host = $this->getHost();
     }
 }

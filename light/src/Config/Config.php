@@ -2,9 +2,11 @@
 namespace Light\Config;
 
 use Light\Support\Arr;
+use Light\Tool\IncludeTrait;
 
 class Config implements \ArrayAccess
 {
+    use IncludeTrait;
     protected $items = [];
 
     public function __construct(array $items = [])
@@ -27,11 +29,13 @@ class Config implements \ArrayAccess
 
     public function set($key, $value = null)
     {
-        $key = is_array($key) ? $key : [$key => $value];
+        $keys = is_array($key) ? $key : [$key => $value];
         
         foreach ($keys as $key => $value) {
             Arr::set($this->items, $key, $value);
         }
+
+        return $this;
     }
 
     public function all()
@@ -56,7 +60,7 @@ class Config implements \ArrayAccess
 
     public function offsetSet($offset, $value)
     {
-        return $this->set($key, $value);
+        return $this->set($offset, $value);
     }
 
     public function offsetUnset($offset)
