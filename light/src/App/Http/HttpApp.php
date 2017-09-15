@@ -4,6 +4,7 @@ namespace Light\App\Http;
 use Light\App\App;
 use Light\Http\HttpHandler;
 use Light\Http\Request;
+use Light\Http\SiteManager;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class HttpApp extends App
@@ -15,7 +16,9 @@ class HttpApp extends App
     public function handle(Request $request)
     {
         $this->initSession();
-        $request->getSession(new Session());
+        $request->setSession(new Session());
+
+        $request->setSiteManager(new SiteManager($this->config->get('site')));
         $this->registerDebug($request);
 
         $this->httpHandler = new HttpHandler($this);

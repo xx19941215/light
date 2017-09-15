@@ -18,7 +18,8 @@ class App
             $config = $configManager->buildConfig();
         }
 
-        $this->isDebug = $config->get('isDebug');
+
+        $this->isDebug = $config->get('debug');
 
         if ($this->isDebug == true) {
             $config = $configManager->buildConfig();

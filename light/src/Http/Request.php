@@ -7,6 +7,12 @@ use Symfony\Component\HttpFoundation\Request as SymfonyRquest;
 class Request extends SymfonyRquest
 {
     protected $route;
+    protected $siteManager;
+
+    public function setSiteManager(SiteManager $siteManager)
+    {
+        $this->siteManager = $siteManager;
+    }
 
     public function setRoute(Route $route)
     {
@@ -22,5 +28,6 @@ class Request extends SymfonyRquest
     public function getSite()
     {
         $host = $this->getHost();
+        return $this->siteManager->getSite($host);
     }
 }

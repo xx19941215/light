@@ -24,6 +24,7 @@ class HttpHandler
             $routerManager->compile();
         }
 
+
         $this->router = $router;
     }
 
