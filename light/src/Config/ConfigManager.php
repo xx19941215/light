@@ -50,8 +50,6 @@ class ConfigManager
                     $name => [$dir . '/setting/router']
                 ]
             ]);
-
-            $config->includeDir($dir . '/setting/config');
         }
 
         $this->config = $config;

@@ -30,19 +30,54 @@ class Route
         }
 
         $this->method = $data['method'];
-        $this->status = $data['status'];
+        $this->status = $data['status'] ?? 0;
         $this->name = $data['name'];
         $this->action = $data['action'];
         $this->site = $data['site'];
         $this->app = $data['app'];
         $this->mode = $data['mode'] ?? 'ui';
         $this->access = $data['access'];
-        $this->params = $data['params'];
+        $this->params = $data['params'] ?? [];
         $this->pattern = $data['pattern'];
     }
 
     public function setParams($params)
     {
         $this->params = $params;
+    }
+
+    public function getSite()
+    {
+        return $this->site;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function getMode()
+    {
+        return $this->mode;
+    }
+
+    public function getMethod()
+    {
+        return $this->method;
+    }
+
+    public function getPattern()
+    {
+        return $this->pattern;
+    }
+
+    public function getAction()
+    {
+        return $this->action;
+    }
+
+    public function getApp()
+    {
+        return $this->app;
     }
 }

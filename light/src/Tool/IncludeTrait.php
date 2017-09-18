@@ -16,8 +16,8 @@ trait IncludeTrait
         }
 
         foreach (scandir($dir) as $file) {
-            if (pathinfo($file, PATHINFO_EXTENSION) == 'PHP') {
-                $this->includeFile($file);
+            if (pathinfo($file, PATHINFO_EXTENSION) == 'php') {
+                $this->includeFile($dir . '/' . $file);
             }
         }
     }

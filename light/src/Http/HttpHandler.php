@@ -2,6 +2,7 @@
 namespace Light\Http;
 
 use Light\App\Http\HttpApp;
+use Light\Routing\Router;
 use Light\Routing\RouterManager;
 
 class HttpHandler
@@ -38,6 +39,11 @@ class HttpHandler
         } catch (\Exception $e) {
 
         }
+    }
+
+    public function getRouter() : Router
+    {
+        return $this->router;
     }
 
     protected function callControllerAction(Request $request)

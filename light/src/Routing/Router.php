@@ -3,12 +3,14 @@ namespace Light\Routing;
 
 use Light\Http\Request;
 use Light\Tool\IncludeTrait;
+use Light\Routing\AddRouteTrait;
 use Light\Routing\RouteCollector;
 use FastRoute\Dispatcher\GroupCountBased as Dispatcher;
 
 class Router
 {
     use IncludeTrait;
+    use AddRouteTrait;
 
     protected $site;
     protected $app;
@@ -19,7 +21,7 @@ class Router
 
     public function site($site)
     {
-        $this->siet = $site;
+        $this->site = $site;
         return $this;
     }
 

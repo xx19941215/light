@@ -13,6 +13,11 @@ class HttpApp extends App
     protected $httpHandler;
     protected $urlManager;
 
+    public function getRouter()
+    {
+        return $this->httpHandler->getRouter();
+    }
+
     public function handle(Request $request)
     {
         $this->initSession();

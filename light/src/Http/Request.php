@@ -20,7 +20,7 @@ class Request extends SymfonyRquest
         return $this->route;
     }
 
-    public function getRoute()
+    public function getRoute() : Route
     {
         return $this->route;
     }
@@ -29,5 +29,19 @@ class Request extends SymfonyRquest
     {
         $host = $this->getHost();
         return $this->siteManager->getSite($host);
+    }
+
+    public function getPath()
+    {
+        if ($path = $this->attributes->get('path')) {
+            return $path;
+        }
+
+        return $this->getPathInfo();
+    }
+
+    public function getApp()
+    {
+
     }
 }

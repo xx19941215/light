@@ -42,7 +42,7 @@ class RouterManager
 
         foreach (prop($opts, 'file', []) as $files) {
             foreach ($files as $file) {
-                $router->includeFile($dir);
+                $router->includeFile($file);
             }
         }
 
