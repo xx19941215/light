@@ -79,7 +79,7 @@ class Router
         }
     }
 
-    protected function getDispatcher($site)
+    protected function getDispatcher($site) : Dispatcher
     {
         if (!$dispatchData = prop($this->dispatchDataMap, $site, [])) {
             $dispatchData = $this->getRouteCollector($site)->getData();
