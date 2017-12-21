@@ -19,13 +19,13 @@ class Statement
         $this->stmt = $stmt;
     }
 
-    public function setFetchAssoc() : Statement
+    public function setFetchAssoc() : self
     {
         $this->stmt->setFetchMode(\PDO::FETCH_ASSOC);
         return $this;
     }
 
-    public function setFetchDto($dtoClass) : Statement
+    public function setFetchDto($dtoClass) : self
     {
         if (!class_exists($dtoClass)) {
             throw new DatabaseException("cannot find dto class $dtoClass");
@@ -35,27 +35,27 @@ class Statement
         return $this;
     }
 
-    public function setFetchObj() : Statement
+    public function setFetchObj() : self
     {
         $this->stmt->setFetchMode(\PDO::FETCH_OBJ);
         return $this;
     }
 
-    public function bindValue($param, $value, $typeName = 'str') : Statement
+    public function bindValue($param, $value, $typeName = 'str') : self
     {
         $typeValue = self::$dataTypeMaps[$typeName] ?? self::$dataTypeMaps['str'];
         $this->stmt->bindValue($param, $value, $typeValue);
         return $this;
     }
 
-    public function bindParam($param, $value, $typeName = 'str') : Statement
+    public function bindParam($param, $value, $typeName = 'str') : self
     {
         $typeValue = self::$dataTypeMaps[$typeName] ?? self::$dataTypeMaps['str'];
         $this->stmt->bindParam($param, $value, $typeValue);
         return $this;
     }
 
-    public function bindValues(array $values) : Statement
+    public function bindValues(array $values) : self
     {
         foreach ($values as $val) {
             $this->bindValue($val['param'], $val['value'], $val['type'] ?? 'str');
@@ -64,7 +64,7 @@ class Statement
         return $this;
     }
 
-    public function bindParams(array $params) : Statement
+    public function bindParams(array $params) : self
     {
         foreach ($params as $val) {
             $this->bindParam($val['param'], $val['value'], $val['type'] ?? 'str');
@@ -73,7 +73,7 @@ class Statement
         return $this;
     }
 
-    public function execute($params = []) : bool
+    public function execute($params = [])
     {
         $executed = $params ?
             $this->stmt->execute($params)
@@ -87,7 +87,6 @@ class Statement
 
     public function fetch()
     {
-        $this->execute();
         return $this->stmt->fetch();
     }
 

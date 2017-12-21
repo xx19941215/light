@@ -29,7 +29,7 @@ trait TableTrait
 
     public function from(...$tables)
     {
-       $this->table($tables);
+       $this->tables($tables);
        return $this;
     }
 

@@ -1,0 +1,9 @@
+<?php
+$this
+    ->site('www')
+    ->access('public')
+    ->get(
+        '/',
+        'index',
+        'Blog\Index\Ui\IndexController@show'
+    );

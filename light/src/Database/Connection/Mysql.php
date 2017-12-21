@@ -1,11 +1,14 @@
 <?php
 namespace Light\Database\Connection;
 
+use Light\Database\Connection\Support\MysqlSqlBuilderTrait;
 use Light\Database\Exception\DatabaseException;
 use Light\Database\Statement\Statement;
 
 class Mysql
 {
+    use MysqlSqlBuilderTrait;
+
     protected $pdo;
     protected $transLevel = 0;
     protected $serverId;

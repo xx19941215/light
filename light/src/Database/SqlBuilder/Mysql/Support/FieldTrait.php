@@ -11,7 +11,7 @@ trait FieldTrait
         return $this;
     }
 
-    public function field($args) : FieldTrait
+    public function field($args)
     {
         if ($args) {
             $this->fields[] = $this->binder->toField($args);
@@ -20,7 +20,7 @@ trait FieldTrait
         return $this;
     }
 
-    public function fields($fields) : FieldTrait
+    public function fields($fields)
     {
         foreach ($fields as $field) {
             $this->field($field);

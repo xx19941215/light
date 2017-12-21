@@ -1,7 +1,9 @@
 <?php
 namespace Light\App;
 
+use Light\Config\Config;
 use Light\Config\ConfigManager;
+use Light\Database\DatabaseManager;
 
 class App
 {
@@ -9,7 +11,9 @@ class App
     protected $isDebug = false;
     protected $baseDir;
     protected $config;
-
+    
+    protected $dmg;
+    
     public function __construct($baseDir)
     {
         $configManager = new ConfigManager($baseDir, $this->type);
@@ -35,8 +39,22 @@ class App
         return $this->baseDir;
     }
 
-    public function getConfig()
+    public function getConfig() : Config
     {
         return $this->config;
+    }
+
+    public function getDmg() : DatabaseManager
+    {
+        if ($this->dmg) {
+            return $this->dmg;
+        }
+        $this->dmg = new DatabaseManager($this->config->get('local.db'), $this->getServerId());
+        return $this->dmg;
+    }
+
+    public function getServerId()
+    {
+        return $this->config->get('server.id');
     }
 }

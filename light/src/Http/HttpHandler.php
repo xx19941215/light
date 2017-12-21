@@ -37,7 +37,7 @@ class HttpHandler
             $request->setRoute($route);
             return $this->callControllerAction($request);
         } catch (\Exception $e) {
-
+            throw $e;
         }
     }
 
