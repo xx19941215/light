@@ -43,7 +43,7 @@ abstract class ControllerBase
 
         $baseDir = $this->config->get('baseDir');
 
-        $folders[] = [$baseDir . '/resource/view'];
+        $folders[] = [$baseDir . '/resources/view'];
         $folders[] = $baseDir . $this->config->get("app.{$requestApp}.dir") . "/view";
 
         return Foil::boot([

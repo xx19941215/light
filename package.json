@@ -1,0 +1,29 @@
+{
+  "name": "light",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:css": "./bin/build-css",
+    "build:js": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xx19941215/light.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xx19941215/light/issues"
+  },
+  "homepage": "https://github.com/xx19941215/light#readme",
+  "devDependencies": {
+    "bootstrap": "^4.0.0-beta.3",
+    "css-loader": "^0.28.7",
+    "node-sass": "^4.7.2",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.19.1",
+    "webpack": "^3.10.0"
+  }
+}

@@ -1,0 +1,46 @@
+#!/usr/bin/env node
+
+var __dirname = __dirname || '';
+const sass = require('node-sass');
+const path = require('path');
+const baseDir = path.resolve(__dirname, './../')
+const fs = require('fs');
+
+let options = {
+    file: baseDir + '/resources/assets/sass/app.scss',
+    includePaths: [path.resolve(baseDir, 'resources/assets/sass/')],
+    outFile: path.resolve(baseDir, 'public/css/app.css'),
+    sourceMap: true,
+    sourceMapFile: path.resolve(baseDir, 'public/css/app.css.map')
+};
+
+function callback(err, result) {
+    if (err) {
+       err(err);
+    } else {
+       success(result)
+    }
+}
+
+function err() {
+
+}
+
+function success(result) {
+    fs.writeFile(options.outFile, result.css.toString(), err => {
+        if (err) {
+            console.log(err);
+        }
+    })
+
+    if (options.sourceMap) {
+        fs.writeFile(options.sourceMapFile, result.map, err => {
+            if (err) {
+                console.log(err);
+            }
+        })
+    }
+
+}
+
+sass.render(options, callback);

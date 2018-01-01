@@ -27,6 +27,9 @@ trait WhereTrait
            $this->wheres[] = "{$field} IN ({$paramsStr})";
            return $this;
        }
+       $this->wheres[] = "{$field} {$operate} {$param}";
+       $this->binder->bindValue($param, $value, $type);
+       return $this;
     }
 
     public function andWhere($field, $operate, $value, $type = 'str')
@@ -100,7 +103,7 @@ trait WhereTrait
            return '';
        }
 
-       return ' where' . implode(' ', $this->wheres);
+       return ' where ' . implode(' ', $this->wheres);
     }
 
     public function startGroup($logic = '')

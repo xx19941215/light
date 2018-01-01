@@ -3,7 +3,7 @@ $baseDir = $this->get('baseDir');
 
 $this
     ->set('debug', true)
-    ->set('baseHost', 'light.dev')
+    ->set('baseHost', 'light.test')
     ->set('local', [
         'db' => [
             'default' => [
