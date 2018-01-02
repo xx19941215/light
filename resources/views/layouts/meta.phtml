@@ -1,0 +1,40 @@
+
+<?php
+$route = $this->request->getRoute()->getName();
+$currentLocaleKey = 'zh-cn';
+
+$metaTitle = $this->meta("title-$route", $this->metaTitleVars);
+$metaDescription = $this->meta("desc-$route", $this->metaDescriptionVars);
+
+$metaKeywords = null;
+if ($this->isKeywords || $this->metaKeywordsVars) {
+    $metaKeywords = $this->meta("keywords-$route", $this->metaKeywordsVars);
+}
+?>
+<title><?php echo $metaTitle; ?></title>
+<meta name="description" content="<?php echo $metaDescription; ?>">
+<?php if ($metaKeywords) { ?>
+    <meta name="keywords" content="<?php echo $metaKeywords; ?>">
+<?php } ?>
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="<?php echo $this->trans('ideaPar'); ?>">
+<meta property="og:locale" content="<?php echo $currentLocaleKey; ?>">
+<meta property="og:title" content="<?php echo $metaTitle; ?>">
+<meta property="og:description" content="<?php echo $metaDescription; ?>">
+<meta property="ob:url" content="<?php echo $this->request->getUri(); ?>">
+
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+
+<link rel="shortcut icon" type="image/vnd.microsoft.icon" href="<?php echo $this->url('www', 'favicon.ico'); ?>">
+<link rel="icon" type="image/png" href="<?php echo $this->staticUrl('img/favicon-16x16.png'); ?>" size="16x16">
+<link rel="icon" type="image/png" href="<?php echo $this->staticUrl('img/favicon-32x32.png'); ?>" size="32x32">
+
+<?php foreach ($this->config->get('i18n.locale.enabled') as $localeKey) { ?>
+    <?php $url = ($this->request->isSecure() ? 'https://' : 'http://')
+        . $this->request->getHttpHost() . '/' . $localeKey
+        . $this->request->attributes->get('path'); ?>
+    <link rel="alternate" hreflang="<?php echo $localeKey; ?>" href="<?php echo $url; ?>">
+    <meta property="og:locale:alternate" content="<?php echo $localeKey; ?>" />
+<?php } ?>

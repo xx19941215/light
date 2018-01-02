@@ -79,4 +79,14 @@ class Mysql
     {
         return $this->pdo->lastInsertId();
     }
+
+    public function xid()
+    {
+        return uniqid($this->serverId . '-');
+    }
+
+    public function xcode()
+    {
+        return uniqid($this->serverId);
+    }
 }

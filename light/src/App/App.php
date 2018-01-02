@@ -1,6 +1,7 @@
 <?php
 namespace Light\App;
 
+use Light\Cache\CacheManager;
 use Light\Config\Config;
 use Light\Config\ConfigManager;
 use Light\Database\DatabaseManager;
@@ -13,7 +14,8 @@ class App
     protected $config;
     
     protected $dmg;
-    
+    protected $cmg;
+
     public function __construct($baseDir)
     {
         $configManager = new ConfigManager($baseDir, $this->type);
@@ -49,8 +51,19 @@ class App
         if ($this->dmg) {
             return $this->dmg;
         }
-        $this->dmg = new DatabaseManager($this->config->get('local.db'), $this->getServerId());
+
+        $this->dmg = new DatabaseManager($this->config->get('database'), $this->getServerId());
         return $this->dmg;
+    }
+
+    public function getCmg() : CacheManager
+    {
+        if ($this->cmg) {
+            return $this->cmg;
+        }
+
+        $this->cmg = new CacheManager($this->config->get('database.redis'));
+        return $this->cmg;
     }
 
     public function getServerId()

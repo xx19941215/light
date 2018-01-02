@@ -5,6 +5,7 @@ use Light\App\App;
 use Light\Http\HttpHandler;
 use Light\Http\Request;
 use Light\Http\SiteManager;
+use Light\Meta\Meta;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class HttpApp extends App
@@ -12,10 +13,25 @@ class HttpApp extends App
     protected $type = 'http';
     protected $httpHandler;
     protected $urlManager;
-
+    protected $meta;
+    
     public function getRouter()
     {
         return $this->httpHandler->getRouter();
+    }
+
+    public function getMeta()
+    {
+       if ($this->meta) {
+           return $this->meta;
+       }
+
+       $this->meta = new Meta(
+           $this->getDmg()->connect('meta'),
+           $this->getCmg()->connect('meta')
+       );
+
+       return $this->meta;
     }
 
     public function handle(Request $request)

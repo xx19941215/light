@@ -39,6 +39,7 @@ class ConfigManager
         $config->includeFile($this->baseDir . '/config/app.php');
         $config->includeFile($this->baseDir . '/config/config.php');
         $config->includeFile($this->baseDir . '/config/site.php');
+        $config->includeFile($this->baseDir . '/config/database.php');
 
         foreach ($config->get('app', []) as $name => $app) {
             if (! $dir = $this->baseDir . $app['dir'] ?? false) {

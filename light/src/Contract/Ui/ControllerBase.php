@@ -33,7 +33,7 @@ abstract class ControllerBase
     protected function engineRegister($viewEngine)
     {
         if (!$viewEngine) {
-            throw new \Exception('view engine cannot be empty');
+            throw new \Exception('View engine cannot be empty');
         }
     }
 

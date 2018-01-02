@@ -1,0 +1,75 @@
+<?php
+$pageAttr = $this->pageAttr ?? [];
+?><!DOCTYPE html>
+<html lang="zh-ch" prefix="og: http://ogp.me/ns#">
+
+<head>
+    <link rel="stylesheet" href="<?php echo $this->staticUrl('css/ipar.css?v=' . $version); ?>">
+    <?php echo $this->insert('html/meta'); ?>
+    <?php $this->section('style'); ?><?php $this->stop(); ?>
+</head>
+<body class="ipar" ontouchstart>
+<div class="message-box hide" id="message-box">
+    <span id="last-read-all-time" value=""></span>
+    <div class="message-header">
+        <span>系统消息</span>
+    </div>
+    <ul id="message-list">
+        <li class="message-item-date">昨天</li>
+        <li>您的订单 <a>儿童座椅</a> 打样状态更新</li>
+        <li>您的订单 <a>儿童座椅</a> 已经开始打样</li>
+        <li>您的订单 <a>儿童座椅</a> BOM 单信息已更新</li>
+        <li>您的订单 <a>儿童座椅</a> 已确定打样师</li>
+    </ul>
+</div>
+
+<?php echo $this->insert('element/main-header', [
+    'menu' => $this->config->get('menu.mass'),
+    'selectedMenu' => $this->selectedMenu
+]); ?>
+
+<?php $this->section('main'); ?><?php $this->stop(); ?>
+
+<input type="hidden" id="page-attr"
+       value="<?php echo attr_json($pageAttr); ?>">
+<?php /*<div class="advice-ctn">
+    <span title="<?php echo $this->trans('advice'); ?>">
+        <i class="icon icon-advice"></i>
+    </span>
+</div> */ ?>
+<script src="<?php echo $this->staticUrl('js/mass.js?v=' . $version); ?>"></script>
+<?php $this->section('script'); ?><?php $this->stop(); ?>
+<script type='text/javascript'>
+    (function(m, ei, q, i, a, j, s) {
+        m[i] = m[i] || function() {
+            (m[i].a = m[i].a || []).push(arguments)
+        };
+        j = ei.createElement(q),
+            s = ei.getElementsByTagName(q)[ei.getElementsByTagName(q).length -1];
+        j.async = true;
+        j.charset = 'UTF-8';
+        j.src = '//static.meiqia.com/dist/meiqia.js?_=t';
+        s.parentNode.insertBefore(j, s);
+    })(window, document, 'script', '_MEIQIA');
+    _MEIQIA('entId', 66165);
+</script>
+<?php /*<script type="text/javascript">
+    (function (m, ei, q, i, a, j, s) {
+        m[i] = m[i] || function() {
+                (m[i].a = m[i].a || []).push(arguments)
+            };
+        j = ei.createElement(q),
+            s = ei.getElementsByTagName(q)[ei.getElementsByTagName(q).length -1];
+        j.async = true;
+        j.charset = 'UTF-8';
+        j.src = '<?php echo $this->staticUrl('js/advice.js'); ?>';
+        s.parentNode.insertBefore(j, s);
+    })(window, document, 'script');
+</script> */ ?>
+
+<script>
+</script>
+<script>
+</script>
+</body>
+</html>
