@@ -1,0 +1,17 @@
+<?php
+$this->layout('layouts/app', [
+]);
+
+$posts = $this->posts;
+
+?>
+<?php $this->section('main'); ?>
+<section class="main">
+    <ul class="list-group">
+        <?php foreach ($posts->getItems() as $post) { ?>
+            <li class="list-group-item"><a href="<?php echo $post->guid; ?>"><?php echo $post->post_title; ?></a></li>
+        <?php } ?>
+    </ul>
+</section>
+<?php $this->replace(); ?>
+

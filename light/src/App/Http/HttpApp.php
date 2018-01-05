@@ -5,6 +5,7 @@ use Light\App\App;
 use Light\Http\HttpHandler;
 use Light\Http\Request;
 use Light\Http\SiteManager;
+use Light\Http\UrlManager;
 use Light\Meta\Meta;
 use Symfony\Component\HttpFoundation\Session\Session;
 
@@ -32,6 +33,11 @@ class HttpApp extends App
        );
 
        return $this->meta;
+    }
+
+    public function getUrlManager(Request $request)
+    {
+        return new UrlManager($this->getRouter(), $request);
     }
 
     public function handle(Request $request)

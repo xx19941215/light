@@ -38,7 +38,7 @@ trait WhereTrait
            $this->wheres[] = 'AND';
        }
        $this->where($field, $operate, $value, $type);
-       return $type;
+       return $this;
     }
 
     public function orWhere($field, $operate, $value, $type = 'str')
@@ -48,7 +48,7 @@ trait WhereTrait
        }
 
        $this->where($field, $operate, $value, $type);
-       return $type;
+       return $this;
     }
 
     public function whereCond($field1, $operate, $field2)

@@ -39,7 +39,7 @@ class InsertSqlBuilder extends SqlBuilder
         return $this;
     }
 
-    public function execute(): bool
+    public function execute()
     {
         $stmt = $this->buildStmt($this->buildInsertSql());
         return $stmt->execute();

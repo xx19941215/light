@@ -12,6 +12,7 @@ trait ControllerTrait
     protected $app;
     protected $request;
     protected $config;
+    protected $urlManager;
 
     public function __construct(App $app, Request $request)
     {
@@ -47,5 +48,15 @@ trait ControllerTrait
     public function getRouter() : Router
     {
         return $this->app->getRouter();
+    }
+
+    public function getUrlManager()
+    {
+        if ($this->urlManager) {
+            return $this->urlManager;
+        }
+
+        $this->urlManager = $this->app->getUrlManager($this->request);
+        return $this->urlManager;
     }
 }

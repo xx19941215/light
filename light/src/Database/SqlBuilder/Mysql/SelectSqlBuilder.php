@@ -102,7 +102,7 @@ class SelectSqlBuilder extends SqlBuilder implements SelectSqlBuilderInterface
        return $stmt->fetchOne();
     }
 
-    public function fetchObj() : \stdClass
+    public function fetchObjOne()
     {
        $this->limit(1);
        $stmt = $this->buildSelectStmt();

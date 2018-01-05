@@ -9,10 +9,6 @@ class IndexController extends ControllerBase
     {
         $posts = obj(new ListPostService($this->app))->list();
 
-        foreach ($posts->getItems() as $post)
-        {
-            echo $post->post_title . PHP_EOL;
-        }
-        exit;
+        return $this->view('page/index/index', compact('posts'));
     }
 }

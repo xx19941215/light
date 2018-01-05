@@ -15,6 +15,7 @@ class PostDto extends DtoBase
     public $ping_status;
     public $post_password;
     public $post_name;
+    public $guid;
     public $to_ping;
     public $pinged;
     public $post_modified;

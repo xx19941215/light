@@ -67,7 +67,7 @@ class Meta
         }
 
         if ($metaValue = $this->findFromDb($localeKey, $metaKey)) {
-            $this->cache->hGet($localeKey, $metaValue, $metaValue);
+            $this->cache->hGet($localeKey, $metaValue);
             return $metaValue;
         }
 

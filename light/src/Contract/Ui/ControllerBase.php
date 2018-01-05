@@ -4,11 +4,18 @@ namespace Light\Contract\Ui;
 use Foil\Engine;
 use Foil\Foil;
 use Light\Contract\Controller\ControllerTrait;
+use Light\View\RegisterMeta;
+use Light\View\RegisterUrl;
 use Symfony\Component\HttpFoundation\Response;
 
 abstract class ControllerBase
 {
     use ControllerTrait;
+
+    public function getMeta()
+    {
+        return $this->app->getMeta();
+    }
 
     protected function view($tpl, $data = []) : Response
     {
@@ -25,6 +32,8 @@ abstract class ControllerBase
             'router' => $this->getRouter()
         ]);
 
+        obj(new RegisterMeta($viewEngine))->register($this->getMeta());
+        obj(new RegisterUrl($viewEngine))->register($this->getUrlManager());
         $this->engineRegister($viewEngine);
 
         return $viewEngine->render($tpl, $data);
@@ -43,9 +52,8 @@ abstract class ControllerBase
 
         $baseDir = $this->config->get('baseDir');
 
-        $folders[] = [$baseDir . '/resources/view'];
-        $folders[] = $baseDir . $this->config->get("app.{$requestApp}.dir") . "/view";
-
+        $folders[] = $baseDir . '/resources/views';
+//        $folders[] = $baseDir . $this->config->get("app.{$requestApp}.dir") . "/view";
         return Foil::boot([
             'folders' => $folders,
             'autoescape' => false,

@@ -34,4 +34,9 @@ class SiteManager
 
         return $this->hostMap;
     }
+
+    public function getHost($site)
+    {
+        return $this->siteMap[$site]['host'];
+    }
 }

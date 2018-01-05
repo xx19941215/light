@@ -40,6 +40,11 @@ class Request extends SymfonyRquest
         return $this->getPathInfo();
     }
 
+    public function getSiteManager() : SiteManager
+    {
+       return $this->siteManager;
+    }
+
     public function getApp()
     {
 
