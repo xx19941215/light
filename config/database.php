@@ -2,6 +2,7 @@
 $localDbHost = $this->get('local.db.host');
 $localDbUsername = $this->get('local.db.username');
 $localDbPassword = $this->get('local.db.password');
+$localDb = $this->get('local.db.database');
 
 $this->set('database', [
     'redis' => [
@@ -20,7 +21,7 @@ $this->set('database', [
         'charset' => 'utf8mb4',
         'collation' => 'utf8mb4_unicode_ci',
         'driver' => 'mysql',
-        'database' => 'wordpress',
+        'database' => $localDb,
         'host' => $localDbHost,
         'username' => $localDbUsername,
         'password' => $localDbPassword
@@ -29,7 +30,7 @@ $this->set('database', [
         'charset' => 'utf8mb4',
         'collation' => 'utf8mb4_unicode_ci',
         'driver' => 'mysql',
-        'database' => 'wordpress',
+        'database' => $localDb,
         'host' => $localDbHost,
         'username' => $localDbUsername,
         'password' => $localDbPassword
