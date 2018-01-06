@@ -1,8 +1,8 @@
 <?php
-$this->layout('layouts/app', [
-]);
 $post = $this->post;
-$this->metaTitle = $post->post_title;
+$this->layout('layouts/app', [
+        'metaTitle' => $post->post_title
+]);
 ?>
 
 <?php $this->section('main'); ?>
