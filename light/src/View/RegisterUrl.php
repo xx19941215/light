@@ -20,5 +20,12 @@ class RegisterUrl extends RegisterBase
                 return $urlManager->staticUrl($uri, $protocol);
             }
         );
+
+        $this->engine->registerFunction(
+            'routeGet',
+            function ($name, $params = [], $query = [], $protocol = '') use ($urlManager) {
+                return $urlManager->routeGet($name, $params, $query, $protocol);
+            }
+        );
     }
 }

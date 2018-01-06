@@ -20,7 +20,8 @@
         "psr-4": {
             "Light\\": "light/src",
             "Blog\\Auth\\": "app/blog/auth/src",
-            "Blog\\Index\\": "app/blog/index/src"
+            "Blog\\Index\\": "app/blog/index/src",
+            "Blog\\Post\\": "app/blog/post/src"
         },
         "files": [
             "light/src/Support/functions.php"

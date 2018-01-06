@@ -2,8 +2,7 @@
 <?php
 $route = $this->request->getRoute()->getName();
 $currentLocaleKey = 'zh-cn';
-
-$metaTitle = $this->meta("title-$route", $this->metaTitleVars);
+$metaTitle = $this->metaTitle ?: $this->meta("title-$route", $this->metaTitleVars);
 $metaDescription = $this->meta("desc-$route", $this->metaDescriptionVars);
 
 $metaKeywords = null;

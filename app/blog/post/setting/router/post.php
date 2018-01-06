@@ -1,0 +1,15 @@
+<?php
+$this
+    ->site('www')
+    ->access('public')
+    ->get(
+        '/post',
+        'listPost',
+        'Blog\Post\Ui\ListPostController@show'
+    )
+    ->get(
+        '/p/{id:[0-9]+}',
+        'fetchPost',
+        'Blog\Post\Ui\FetchPostController@show'
+    )
+    ;

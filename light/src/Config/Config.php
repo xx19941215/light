@@ -29,13 +29,29 @@ class Config implements \ArrayAccess
 
     public function set($key, $value = null)
     {
-        $keys = is_array($key) ? $key : [$key => $value];
-        
-        foreach ($keys as $key => $value) {
-            Arr::set($this->items, $key, $value);
+        if (is_array($key)) {
+            foreach ($key as $subKey => $subValue) {
+                $this->set($subKey, $subValue);
+            }
+
+            return $this;
         }
 
-        return $this;
+        if (is_string($key)) {
+            if (is_array($value)) {
+                foreach ($value as $subKey => $subValue) {
+                    $this->set($key . '.' . $subKey, $subValue);
+                }
+
+                return $this;
+            }
+
+            Arr::set($this->items, $key, $value);
+            return $this;
+        }
+
+        throw new \RuntimeException('config::set error format');
+
     }
 
     public function all()

@@ -1,7 +1,7 @@
 <?php
-namespace Blog\Index\Repo;
+namespace Blog\Post\Repo;
 
-use Blog\Index\Dto\PostDto;
+use Blog\Post\Dto\PostDto;
 
 class ListPostRepo extends RepoBase
 {
@@ -11,7 +11,6 @@ class ListPostRepo extends RepoBase
             ->from('wp_posts')
             ->where('post_status', '=', 'publish')
             ->andWhere('post_type', '=', 'post')
-            ->orderBy('post_date', 'desc')
             ->limit(10);
 
         return $this->dataSet($ssb, PostDto::class);

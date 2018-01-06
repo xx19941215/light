@@ -100,4 +100,73 @@ class Router
         return $this->routeCollectorMap[$site];
     }
 
+    public function routeInfo($routeName, $params = [], $mode = '', $method = '')
+    {
+       $modes = ['ui', 'rest'];
+       $methods = ['GET', 'POST'];
+
+       if ($mode) {
+           $modes = [$mode];
+       }
+
+       if ($method) {
+           $methods = [$method];
+       }
+
+       if ($set = prop($this->routeMap, $routeName)) {
+           foreach ($modes as $mode) {
+               if ($sons = prop($set, $mode)) {
+                   foreach ($methods as $method) {
+                       if ($route = prop($sons, $method)) {
+                           $pattern = $route->getPattern();
+                           $site = $route->getSite();
+                           return [
+                               'site' => $site,
+                               'path' => $this->replaceRouteParameters($pattern, $params)
+                           ];
+                       }
+                   }
+               }
+           }
+       }
+
+        throw new \Exception("Route Not Found: $routeName");
+
+    }
+
+    protected function replaceRouteParameters($pattern, array &$params)
+    {
+        if ($params) {
+            $pattern = $this->pregReplaceSub(
+                '/\{.*?\}/',
+                $params,
+                $this->replaceNamedParameters($pattern, $params)
+            );
+        }
+        return str_replace(['[', ']'], '', preg_replace('/\{.*?\?\}/', '', $pattern));
+    }
+
+    protected function pregReplaceSub($pattern, &$replacements, $subject)
+    {
+        return preg_replace_callback($pattern, function () use (&$replacements) {
+            return array_shift($replacements);
+        }, $subject);
+    }
+
+    protected function replaceNamedParameters($pattern, &$params)
+    {
+        return preg_replace_callback('/\{(.*?)\??\}/', function ($match) use (&$params) {
+            return isset($params[$match[1]]) ? $this->arrPull($params, $match[1]) : $match[0];
+        }, $pattern);
+    }
+
+    protected function arrPull(&$arr, $key, $default = null)
+    {
+        $val = prop($arr, $key, $default);
+        if (isset($arr[$key])) {
+            unset($arr[$key]);
+        }
+        return $val;
+    }
+
 }

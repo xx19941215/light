@@ -6,6 +6,7 @@ use Light\Http\HttpHandler;
 use Light\Http\Request;
 use Light\Http\SiteManager;
 use Light\Http\UrlManager;
+use Light\I18n\Locale\LocaleManager;
 use Light\Meta\Meta;
 use Symfony\Component\HttpFoundation\Session\Session;
 
@@ -46,6 +47,8 @@ class HttpApp extends App
         $request->setSession(new Session());
 
         $request->setSiteManager(new SiteManager($this->config->get('site')));
+        $request->setLocaleManager(new LocaleManager($this->config->get('i18n.locale')));
+
         $this->registerDebug($request);
 
         $this->httpHandler = new HttpHandler($this);

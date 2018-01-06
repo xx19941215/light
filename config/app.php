@@ -2,9 +2,12 @@
 $this
     ->set("app", [
         "Blog\\Auth\\" => [
-            "dir" => "/app//blog/auth"
+            "dir" => "/app/blog/auth"
         ],
         "Blog\\Index\\" => [
-            "dir" => "/app//blog/index"
+            "dir" => "/app/blog/index"
+        ],
+        "Blog\\Post\\" => [
+            "dir" => "/app/blog/post"
         ]
     ]);

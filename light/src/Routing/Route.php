@@ -80,4 +80,9 @@ class Route
     {
         return $this->app;
     }
+
+    public function getParams()
+    {
+        return $this->params;
+    }
 }

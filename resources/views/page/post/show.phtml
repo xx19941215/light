@@ -1,0 +1,22 @@
+<?php
+$this->layout('layouts/app', [
+]);
+$post = $this->post;
+$this->metaTitle = $post->post_title;
+?>
+
+<?php $this->section('main'); ?>
+    <div class="main">
+       <div class="post">
+           <h3 class="date">
+               <?php echo $post->post_date;?>
+           </h3>
+           <h1>
+               <?php echo $post->post_title;?>
+           </h1>
+           <div class="content">
+               <?php echo $post->post_content; ?>
+           </div>
+       </div>
+    </div>
+<?php $this->replace(); ?>

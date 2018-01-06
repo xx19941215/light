@@ -13,12 +13,17 @@ trait ControllerTrait
     protected $request;
     protected $config;
     protected $urlManager;
+    protected $params = [];
 
     public function __construct(App $app, Request $request)
     {
         $this->app = $app;
         $this->config = $app->getConfig();
         $this->request = $request;
+
+        if ($route = $request->getRoute()) {
+            $this->params = $route->getParams();
+        }
     }
 
     public function bootstrap()
@@ -58,5 +63,10 @@ trait ControllerTrait
 
         $this->urlManager = $this->app->getUrlManager($this->request);
         return $this->urlManager;
+    }
+
+    protected function getParam($key, $default = null)
+    {
+        return prop($this->params, $key, $default);
     }
 }

@@ -46,6 +46,7 @@ class RouterManager
             }
         }
 
+
         $this->router = $router;
         return $this->router;
     }
