@@ -11,7 +11,8 @@ class ListPostRepo extends RepoBase
             ->from('wp_posts')
             ->where('post_status', '=', 'publish')
             ->andWhere('post_type', '=', 'post')
-            ->limit(10);
+            ->orderBy('post_date', 'desc')
+            ->limit(15);
 
         return $this->dataSet($ssb, PostDto::class);
     }
