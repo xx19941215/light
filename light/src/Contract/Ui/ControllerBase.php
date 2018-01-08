@@ -35,7 +35,6 @@ abstract class ControllerBase
         obj(new RegisterMeta($viewEngine))->register($this->getMeta());
         obj(new RegisterUrl($viewEngine))->register($this->getUrlManager());
         $this->engineRegister($viewEngine);
-
         return $viewEngine->render($tpl, $data);
     }
 

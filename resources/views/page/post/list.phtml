@@ -3,7 +3,10 @@ $this->layout('layouts/app', [
 ]);
 
 $posts = $this->posts;
-
+$pageNow = $posts->getCurrentPage();
+$pagePrev = $pageNow == 1 ? '' : -- $pageNow;
+$pageCount = $posts->getPageCount();
+$pageNext = $pageNow < $pageCount ? ++$pageNow : '';
 ?>
 <?php $this->section('style');?>
 <style>
@@ -78,6 +81,12 @@ $posts = $this->posts;
                 </li>
             <?php } ?>
         </ul>
+        <?php if ($pagePrev) { ?>
+            <a id="newer" class="blog-nav" href="<?php echo $this->routeGet('listPost', [], ['page' => $pagePrev]);?>">&lt;&nbsp;NEWER</a>
+        <?php } ?>
+        <?php if ($pageNext) { ?>
+            <a id="older" class="blog-nav" href="<?php echo $this->routeGet('listPost', [], ['page' => $pageNext]);?>">OLDER&nbsp;&gt;</a>
+        <?php } ?>
     </div>
 </section>
 <?php $this->replace(); ?>

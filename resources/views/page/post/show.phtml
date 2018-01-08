@@ -1,5 +1,7 @@
 <?php
 $post = $this->post;
+$prevPost = $this->prevPost;
+$nextPost = $this->nextPost;
 $this->layout('layouts/app', [
         'metaTitle' => $post->post_title
 ]);
@@ -17,6 +19,12 @@ $this->layout('layouts/app', [
            <div class="content">
                <?php echo $post->post_content; ?>
            </div>
+           <?php if ($prevPost) { ?>
+           <a id="newer" class="blog-nav" href="<?php echo $this->routeGet('fetchPost', ['id' => $prevPost->ID]);?>">&lt;&nbsp;NEWER</a>
+           <?php } ?>
+           <?php if ($nextPost) { ?>
+           <a id="older" class="blog-nav" href="<?php echo $this->routeGet('fetchPost', ['id' => $nextPost->ID]);?>">OLDER&nbsp;&gt;</a>
+           <?php } ?>
        </div>
     </div>
 <?php $this->replace(); ?>
