@@ -4,9 +4,10 @@ $this->layout('layouts/app', [
 
 $posts = $this->posts;
 $pageNow = $posts->getCurrentPage();
-$pagePrev = $pageNow == 1 ? '' : -- $pageNow;
+$pagePrev = $pageNow == 1 ? '' : $pageNow - 1;
 $pageCount = $posts->getPageCount();
-$pageNext = $pageNow < $pageCount ? ++$pageNow : '';
+$pageNext = $pageNow < $pageCount ? $pageNow + 1 : '';
+
 ?>
 <?php $this->section('style');?>
 <style>
