@@ -1,20 +1,43 @@
 <?php
 namespace Light\Foundation;
 
-use Light\Config\Config;
 use Light\Container\Container;
+use Light\Routing\RouterManager;
 
 class App extends Container
 {
-    protected $config;
+    public $baseDir;
+    protected $router;
 
-    public function __construct(Config $config)
+    public function __construct($baseDir = '')
     {
-        $this->config = $config;
+        $this->baseDir = $baseDir;
+        $this->bootstrapContainer();
     }
 
-    public function getConfig()
+    protected function bootstrapContainer()
     {
-        return $this->config;
+        static::setInstance($this);
+        $this->instance('Light\Foundation\App', $this);
+        $this->registerContainerAliases();
+    }
+
+    public function bootstrapRouter()
+    {
+        $routerManager = new RouterManager($this->baseDir);
+        $this->router = $routerManager->buildRouter($this->make('config')->get('router'));
+    }
+
+    public function make($abstract, $parameters = [])
+    {
+        $abstract = $this->getAlias($abstract);
+        return parent::make($abstract, $parameters);
+    }
+
+    protected function registerContainerAliases()
+    {
+        $this->aliases = [
+            'Light\Config\Config' => 'config',
+        ];
     }
 }

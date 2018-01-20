@@ -1,14 +1,16 @@
 <?php
 namespace Light\Cache;
 
+use Light\Config\Config;
+
 class CacheManager
 {
     protected $cnns;
     protected $opts;
 
-    public function __construct($opts = [])
+    public function __construct(Config $config)
     {
-        $this->opts = $opts;
+        $this->opts = $config->get('database.redis');
     }
 
     public function connect($name)

@@ -1,16 +1,16 @@
 <?php
 namespace Light\Config;
 
+use Light\Foundation\App;
+
 class ConfigManager
 {
     protected $config;
     protected $baseDir;
-    protected $type;
 
-    public function __construct($baseDir, $type)
+    public function __construct(App $app)
     {
-        $this->baseDir = $baseDir;
-        $this->type = $type;
+        $this->baseDir = $app->baseDir;
     }
 
     public function getConfig()
@@ -65,6 +65,6 @@ class ConfigManager
 
     protected function getCompiledPath()
     {
-        return $this->baseDir . '/cache/setting-config-' . $this->type . '.php';
+        return $this->baseDir . '/cache/setting-config.php';
     }
 }

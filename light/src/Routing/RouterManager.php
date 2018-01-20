@@ -1,16 +1,16 @@
 <?php
 namespace Light\Routing;
 
+use Light\Foundation\App;
+
 class RouterManager
 {
     protected $router;
-    protected $type;
     protected $baseDir;
 
-    public function __construct($baseDir, $type)
+    public function __construct(App $app)
     {
-        $this->baseDir = $baseDir;
-        $this->type = $type;
+        $this->baseDir = $app->baseDir;
     }
 
     public function getRouter()
@@ -64,6 +64,6 @@ class RouterManager
 
     protected function getCompiledPath()
     {
-        return $this->baseDir . '/cache/setting-router-' . $this->type . '.php';
+        return $this->baseDir . '/cache/setting-router.php';
     }
 }
