@@ -13,7 +13,7 @@ class HttpHandler
     public function __construct(HttpApp $app)
     {
         $this->app = $app;
-        $routerManager = new RouterManager($this->app->getBaseDir(), 'http');
+        $routerManager = new RouterManager($this->app->getBaseDir());
         $this->config = $this->app->getConfig();
 
         if (!$router = $routerManager->getRouter()) {

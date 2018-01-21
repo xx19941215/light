@@ -7,18 +7,6 @@ class Container
     public static $instance;
     protected $instances = [];
     protected $aliases = [];
-//    public function bind($abstract, $concrete = null)
-//    {
-//        if (is_null($concrete)) {
-//            $concrete = $abstract;
-//        }
-//
-//        if ($concrete instanceof \Closure) {
-//            $this->bindings[$abstract] = $concrete;
-//        } else {
-//            $this->instances[$abstract] = $concrete;
-//        }
-//    }
 
     public function bind($abstract, $concrete = null, $shared = false)
     {
@@ -56,12 +44,6 @@ class Container
         }
 
         return $object;
-//        if (isset($this->instances[$abstract])) {
-//            return $this->instances[$abstract];
-//        }
-//
-//        array_unshift($parameters, $this);
-//        return call_user_func($this->bindings[$abstract], $parameters);
     }
 
     protected function getConcrete($abstract)
@@ -161,6 +143,4 @@ class Container
 
         return $this->getAlias($this->aliases[$abstract]);
     }
-
-
 }
