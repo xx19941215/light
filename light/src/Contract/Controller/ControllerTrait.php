@@ -1,7 +1,7 @@
 <?php
 namespace Light\Contract\Controller;
 
-use Light\App\App;
+use Light\Foundation\App;
 use Light\Config\Config;
 use Light\Http\Request;
 use Light\Routing\Router;
@@ -15,10 +15,10 @@ trait ControllerTrait
     protected $urlManager;
     protected $params = [];
 
-    public function __construct(App $app, Request $request)
+    public function __construct($app, Request $request)
     {
         $this->app = $app;
-        $this->config = $app->getConfig();
+        $this->config = $app->make('config');
         $this->request = $request;
 
         if ($route = $request->getRoute()) {
@@ -52,7 +52,7 @@ trait ControllerTrait
 
     public function getRouter() : Router
     {
-        return $this->app->getRouter();
+        return $this->app->make('router');
     }
 
     public function getUrlManager()
@@ -61,7 +61,7 @@ trait ControllerTrait
             return $this->urlManager;
         }
 
-        $this->urlManager = $this->app->getUrlManager($this->request);
+        $this->urlManager = $this->app->make('urlManager');
         return $this->urlManager;
     }
 

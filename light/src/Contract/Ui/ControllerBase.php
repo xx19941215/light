@@ -14,7 +14,7 @@ abstract class ControllerBase
 
     public function getMeta()
     {
-        return $this->app->getMeta();
+        return $this->app->make('meta');
     }
 
     protected function view($tpl, $data = []) : Response

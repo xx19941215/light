@@ -1,13 +1,15 @@
 <?php
 namespace Light\I18n\Locale;
 
+use Light\Config\Config;
+
 class LocaleManager
 {
     protected $localeOpts;
 
-    public function __construct($localeOpts)
+    public function __construct(Config $config)
     {
-        $this->localeOpts = $localeOpts;
+        $this->localeOpts = $config->get('i18n.locale');
     }
 
     public function getMode()

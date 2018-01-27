@@ -1,6 +1,7 @@
 <?php
 namespace Light\Database;
 
+use Light\Config\Config;
 use Light\Database\Exception\DatabaseException;
 
 class DatabaseManager
@@ -9,10 +10,10 @@ class DatabaseManager
     protected $connections;
     protected $serverId;
 
-    public function __construct($optsSet, $serverId)
+    public function __construct(Config $config)
     {
-        $this->optsSet = $optsSet;
-        $this->serverId = $serverId;
+        $this->optsSet = $config->get('database');
+        $this->serverId = $config->get('server.id');
     }
 
     public function connect($name)

@@ -1,7 +1,7 @@
 <?php
 namespace Light\Contract\Service;
 
-use Light\App\App;
+use Light\Foundation\App;
 use Light\Config\Config;
 use Light\Database\DatabaseManager;
 
@@ -21,6 +21,6 @@ abstract class ServiceBase
 
     protected function getDmg() : DatabaseManager
     {
-        return $this->app->getDmg();
+        return $this->app->make('databaseManager');
     }
 }

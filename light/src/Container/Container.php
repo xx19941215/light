@@ -1,4 +1,5 @@
 <?php
+
 namespace Light\Container;
 
 class Container
@@ -10,11 +11,13 @@ class Container
 
     public function bind($abstract, $concrete = null, $shared = false)
     {
-       if (! $concrete instanceof \Closure) {
-           $concrete = $this->getClosure($abstract, $concrete);
-       }
+        $this->dropStaleInstances($abstract);
 
-       $this->bindings[$abstract] = compact('concrete', 'shared');
+        if (!$concrete instanceof \Closure) {
+            $concrete = $this->getClosure($abstract, $concrete);
+        }
+
+        $this->bindings[$abstract] = compact('concrete', 'shared');
     }
 
     public function getClosure($abstract, $concrete)
@@ -27,12 +30,12 @@ class Container
 
     public function make($abstract, $parameters = [])
     {
-
         if (isset($this->instances[$abstract])) {
             return $this->instances[$abstract];
         }
 
         $concrete = $this->getConcrete($abstract);
+
         if ($this->isBuildable($concrete, $abstract)) {
             $object = $this->build($concrete, $parameters);
         } else {
@@ -48,11 +51,11 @@ class Container
 
     protected function getConcrete($abstract)
     {
-       if (!isset($this->bindings[$abstract])) {
-           return $abstract;
-       }
+        if (!isset($this->bindings[$abstract])) {
+            return $abstract;
+        }
 
-       return $this->bindings[$abstract]['concrete'];
+        return $this->bindings[$abstract]['concrete'];
     }
 
     public function build($concrete, $parameters = [])
@@ -63,7 +66,7 @@ class Container
         }
 
         $reflector = new \ReflectionClass($concrete);
-        if (! $reflector->isInstantiable()) {
+        if (!$reflector->isInstantiable()) {
             throw new \Exception("Target [$concrete] is not instantiable");
         }
 
@@ -82,17 +85,16 @@ class Container
     {
         $dependencies = [];
         foreach ($parameters as $parameter) {
-           $dependency = $parameter->getClass();
-           if (array_key_exists($parameter->name, $primitives)) {
-               $dependencies[] = $primitives[$parameter->name];
-           } else if (is_null($dependency)) {
-               $dependencies[] = null;
-           } else {
-               $dependencies[] = $this->resolveClass($parameter);
-           }
+            $dependency = $parameter->getClass();
+            if (array_key_exists($parameter->name, $primitives)) {
+                $dependencies[] = $primitives[$parameter->name];
+            } else if (is_null($dependency)) {
+                $dependencies[] = null;
+            } else {
+                $dependencies[] = $this->resolveClass($parameter);
+            }
         }
-
-        return (array) $dependencies;
+        return (array)$dependencies;
     }
 
     protected function resolveClass(\ReflectionParameter $parameter)
@@ -130,9 +132,14 @@ class Container
                 $this->bindings[$abstract]['shared'] === true);
     }
 
+    protected function dropStaleInstances($abstract)
+    {
+        unset($this->instances[$abstract], $this->aliases[$abstract]);
+    }
+
     public function getAlias($abstract)
     {
-        if (! isset($this->aliases[$abstract])) {
+        if (!isset($this->aliases[$abstract])) {
             return $abstract;
         }
 

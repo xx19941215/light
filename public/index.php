@@ -1,7 +1,6 @@
 <?php
-$baseDir = realpath(__DIR__ . '/../');
 
-require $baseDir . '/vendor/autoload.php';
+$app = require __DIR__ . '/../bootstrap/app.php';
 
 $request = new \Light\Http\Request(
     $_GET,
@@ -12,6 +11,6 @@ $request = new \Light\Http\Request(
     $_SERVER
 );
 
-$response = app($baseDir, 'http')->handle($request);
+$response = $app->handle($request);
 $response->send();
 

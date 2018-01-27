@@ -11,7 +11,5 @@ if ($app->make('config')->get('debug')) {
     $whoops->register();
 }
 
-$app->bootstrapRouter();
-
 return $app;
 

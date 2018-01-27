@@ -1,14 +1,16 @@
 <?php
 namespace Light\Http;
 
+use Light\Config\Config;
+
 class SiteManager
 {
     protected $siteMap;
     protected $hostMap = [];
 
-    public function __construct($siteMap)
+    public function __construct(Config $config)
     {
-        $this->siteMap = $siteMap;
+        $this->siteMap = $config->get('site');
     }
 
     public function getSite($host)
