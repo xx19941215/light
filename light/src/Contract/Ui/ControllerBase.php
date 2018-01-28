@@ -49,9 +49,9 @@ abstract class ControllerBase
     {
         $requestApp = $this->getRequest()->getRoute()->getApp();
 
-        $baseDir = $this->config->get('baseDir');
+        $basePath = $this->app->basePath;
 
-        $folders[] = $baseDir . '/resources/views';
+        $folders[] = $basePath . '/resources/views';
 //        $folders[] = $baseDir . $this->config->get("app.{$requestApp}.dir") . "/view";
         return Foil::boot([
             'folders' => $folders,

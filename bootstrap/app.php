@@ -1,15 +1,23 @@
 <?php
-$baseDir = realpath(__DIR__ . '/../');
+$basePath = realpath(__DIR__ . '/../');
 
-require $baseDir . '/vendor/autoload.php';
+require $basePath . '/vendor/autoload.php';
 
-$app = new \Light\Foundation\App($baseDir);
 
-if ($app->make('config')->get('debug')) {
+
+try {
+    (new Dotenv\Dotenv(__DIR__.'/../'))->load();
+} catch (Dotenv\Exception\InvalidPathException $e) {
+    //
+}
+
+if (env('APP_DEBUG')) {
     $whoops = new \Whoops\Run;
     $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
     $whoops->register();
 }
 
-return $app;
+$app = new \Light\Foundation\App($basePath);
 
+
+return $app;

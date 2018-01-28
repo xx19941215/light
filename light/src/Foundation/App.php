@@ -3,6 +3,7 @@ namespace Light\Foundation;
 
 use Light\Cache\CacheManager;
 use Light\Concerns\RouteRequest;
+use Light\Config\Config;
 use Light\Config\ConfigManager;
 use Light\Container\Container;
 use Light\Database\DatabaseManager;
@@ -16,13 +17,14 @@ class App extends Container
 {
     use RouteRequest;
 
-    public $baseDir;
+    public $basePath;
     protected $router;
     protected $ranServiceBinders = [];
+    protected $loadedConfigurations = [];
 
-    public function __construct($baseDir = '')
+    public function __construct($basePath = '')
     {
-        $this->baseDir = $baseDir;
+        $this->basePath = $basePath;
         $this->bootstrapContainer();
         $this->bootstrapRouter();
     }
@@ -37,8 +39,7 @@ class App extends Container
 
     public function bootstrapRouter()
     {
-        $routerManager = new RouterManager($this);
-        $this->router = $routerManager->buildRouter($this->make('config')->get('router'));
+        $this->router = $this->make('routerManager')->buildRouter($this->make('config'));
     }
 
     public function make($abstract, $parameters = [])
@@ -73,8 +74,11 @@ class App extends Container
     protected function registerConfigBindings()
     {
         $this->singleton('config', function () {
-            return $this->make('configManager')->buildConfig();
+            return new Config;
         });
+
+        $this->configure('app');
+        $this->configure('config');
     }
 
     protected function registerMetaBindings()
@@ -104,6 +108,8 @@ class App extends Container
 
     protected function registerDatabaseManagerBindings()
     {
+        $this->configure('database');
+
         $this->singleton('databaseManager', function () {
             return new DatabaseManager($this->make('config'));
         });
@@ -127,8 +133,17 @@ class App extends Container
         });
     }
 
+    protected function registerRouterManagerBindings()
+    {
+        $this->singleton('routerManager', function() {
+            return new RouterManager($this);
+        });
+    }
+
     protected function registerSiteManagerBindings()
     {
+        $this->configure('site');
+
         $this->singleton('siteManager', function () {
             return new SiteManager($this->make('config'));
         });
@@ -139,6 +154,62 @@ class App extends Container
         $this->singleton('urlManager', function() {
             return new UrlManager($this->router, $this->make('request'));
         });
+    }
+
+    public function configure($name)
+    {
+        if (isset($this->loadedConfigurations[$name])) {
+            return;
+        }
+
+        $this->loadedConfigurations[$name] = true;
+
+        $path = $this->getConfigurationPath($name);
+
+        if ($path) {
+            $this->make('config')->set($name, require $path);
+        }
+    }
+
+    public function getConfigurationPath($name = null)
+    {
+        if (! $name) {
+            $appConfigDir = $this->basePath('config').'/';
+
+            if (file_exists($appConfigDir)) {
+                return $appConfigDir;
+            } elseif (file_exists($path = __DIR__.'/../config/')) {
+                return $path;
+            }
+        } else {
+            $appConfigPath = $this->basePath('config').'/'.$name.'.php';
+
+            if (file_exists($appConfigPath)) {
+                return $appConfigPath;
+            } elseif (file_exists($path = __DIR__.'/../config/'.$name.'.php')) {
+                return $path;
+            }
+        }
+    }
+
+    public function basePath($path = null)
+    {
+        if (isset($this->basePath)) {
+            return $this->basePath.($path ? '/'.$path : $path);
+        }
+
+        if ($this->runningInConsole()) {
+            $this->basePath = getcwd();
+        } else {
+            $this->basePath = realpath(getcwd().'/../');
+        }
+
+        return $this->basePath($path);
+    }
+
+    public function runningInConsole()
+    {
+        return php_sapi_name() == 'cli';
     }
 
     public $availableBindings = [
@@ -152,6 +223,7 @@ class App extends Container
         'meta' => 'registerMetaBindings',
         'router' => 'registerRouterBindings',
         'urlManager' => 'registerUrlManagerBindings',
+        'routerManager' => 'registerRouterManagerBindings',
     ];
 
 }

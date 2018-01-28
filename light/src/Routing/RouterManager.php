@@ -1,16 +1,17 @@
 <?php
 namespace Light\Routing;
 
+use Light\Config\Config;
 use Light\Foundation\App;
 
 class RouterManager
 {
     protected $router;
-    protected $baseDir;
+    protected $basePath;
 
     public function __construct(App $app)
     {
-        $this->baseDir = $app->baseDir;
+        $this->basePath = $app->basePath;
     }
 
     public function getRouter()
@@ -30,9 +31,24 @@ class RouterManager
         return null;
     }
 
-    public function buildRouter($opts)
+    public function buildRouter(Config $config)
     {
         $router = new Router();
+
+        foreach ($config->get('app', []) as $name => $app) {
+            if (! $dir = $this->basePath . $app['dir'] ?? false) {
+                continue;
+            }
+
+            $config->set('router', [
+                'dir' => [
+                    $name => [$dir . '/setting/router']
+                ]
+            ]);
+        }
+
+        $opts = $config->get('router');
+
         foreach (prop($opts, 'dir', []) as $app => $dirs) {
             foreach ($dirs as $dir) {
                 $router->app($app);
@@ -64,6 +80,6 @@ class RouterManager
 
     protected function getCompiledPath()
     {
-        return $this->baseDir . '/cache/setting-router.php';
+        return $this->basePath . '/cache/setting-router.php';
     }
 }

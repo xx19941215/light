@@ -1,12 +1,11 @@
 <?php
-$baseHost = $this->get('baseHost');
 
-$this->set('site', [
+return [
     'www' => [
-        'host' => 'www.' . $baseHost,
+        'host' => 'www.' . env('APP_BASE_HOST'),
     ],
     'static' => [
-        'host' => 'static.' . $baseHost,
-        'dir' => $this->get('baseDir') . '/public',
+        'host' => 'static.' . env('APP_BASE_HOST'),
+        'dir' => __DIR__ . '/../public',
     ],
-]);
+];

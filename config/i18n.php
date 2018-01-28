@@ -3,7 +3,7 @@
 // scheme:[//[user:password@]host[:port]][/]path[?query][#fragment]
 //
 
-$this->set('i18n', [
+return [
     'db' => 'i18n',
     'cache' => 'i18n',
     'locale' => [
@@ -21,4 +21,4 @@ $this->set('i18n', [
         ],
         'default' => 'zh-cn',
     ]
-]);
+];
