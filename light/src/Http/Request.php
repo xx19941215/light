@@ -10,6 +10,7 @@ class Request extends SymfonyRquest
     protected $route;
     protected $siteManager;
     protected $localeManager;
+    protected $path;
 
     public function setLocaleManager(LocaleManager $localeManager)
     {
@@ -60,11 +61,20 @@ class Request extends SymfonyRquest
 
     public function getPath()
     {
+        if ($this->path) {
+           return $this->path;
+        }
+
         if ($path = $this->attributes->get('path')) {
             return $path;
         }
 
         return $this->getPathInfo();
+    }
+
+    public function setPath($path)
+    {
+        $this->path = $path;
     }
 
     public function getSiteManager() : SiteManager

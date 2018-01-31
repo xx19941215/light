@@ -2,6 +2,7 @@
 namespace Light\Concerns;
 
 use Light\Http\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 trait RouteRequest
 {
@@ -14,6 +15,27 @@ trait RouteRequest
         $request->setSiteManager($this->make('siteManager'));
         $request->setLocaleManager($this->make('localeManager'));
 
+        if ($this->make('config')->get('config.i18n')) {
+            $parsed = $this->parsePathInfo($request->getPathInfo());
+            $path = $parsed['path'];
+            $localeKey = $parsed['localeKey'];
+            if (!$localeKey) {
+                if ($path !== '/') {
+                    //todo
+                    throw new \Exception('localeNotFound');
+                }
+
+                return $this->gotoLocaleResponse($request);
+            }
+
+            if (!$path) {
+                return $this->gotoLocaleResponse($request);
+            }
+
+            $this->make('localeManager')->setLocaleKey($localeKey);
+            $request->setPath($path);
+        }
+
         $route = $this->router->dispatch($request);
 
         try {
@@ -23,6 +45,24 @@ trait RouteRequest
         } catch (\Exception $e) {
             throw $e;
         }
+    }
+
+    protected function gotoLocaleResponse($request)
+    {
+        if ($localeUrl = $this->getLocaleUrl($request)) {
+            return new RedirectResponse($localeUrl);
+        }
+
+        //todo
+        throw new \Exception('localeNotFound');
+    }
+
+    protected function getLocaleUrl(Request $request)
+    {
+        $protocol = $request->isSecure() ? 'https://' : 'http://';
+
+        $localeUrl = $protocol . $request->getHttpHost() . '/' . $request->getLocaleKey() . '/';
+        return $localeUrl;
     }
 
     protected function callControllerAction(Request $request)
@@ -45,5 +85,35 @@ trait RouteRequest
         }
 
         return $controller->$fun();
+    }
+
+    protected function parsePathInfo($pathInfo)
+    {
+        $config = $this->make('config');
+
+        $path = substr($pathInfo, 1);
+        $pos = strpos($path, '/');
+        // zh-cn/user/
+        if ($pos !== false) {
+            $tryLocaleKey = substr($path, 0, $pos);
+            if ($locale = $config->get('i18n.locale.available.'.$tryLocaleKey)) {
+                $pathInfo = substr($pathInfo, $pos + 1);
+
+                return [
+                    'localeKey' => $tryLocaleKey,
+                    'path' => $pathInfo,
+                ];
+            }
+        }
+        // zh-cn
+        if ($locale = $config->get('i18n.locale.available.' . $path)) {
+            return [
+                'localeKey' => $path,
+                'path' => '',
+            ];
+        }
+
+        // user
+        return ['localeKey' => '', 'path' => $pathInfo];
     }
 }

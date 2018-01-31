@@ -124,6 +124,8 @@ class App extends Container
         $this->singleton('localeManager', function () {
             return new LocaleManager($this->make('config'));
         });
+
+        $this->configure('i18n');
     }
 
     protected function registerRouterBindings()

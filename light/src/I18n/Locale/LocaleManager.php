@@ -6,10 +6,16 @@ use Light\Config\Config;
 class LocaleManager
 {
     protected $localeOpts;
+    protected $localeKey = '';
 
     public function __construct(Config $config)
     {
         $this->localeOpts = $config->get('i18n.locale');
+    }
+
+    public function setLocaleKey(string $localeKey): void
+    {
+        $this->localeKey = $localeKey;
     }
 
     public function getMode()
