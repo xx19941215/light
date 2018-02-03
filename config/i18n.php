@@ -7,7 +7,7 @@ return [
     'db' => 'i18n',
     'cache' => 'i18n',
     'locale' => [
-        'mode' => 'default',
+        'mode' => 'path',
         'available' => [
             'zh-cn' => ['key' => 'zh-cn', 'title' => '简体中文'],
             'en-us' => ['key' => 'en-us', 'title' => 'English'],

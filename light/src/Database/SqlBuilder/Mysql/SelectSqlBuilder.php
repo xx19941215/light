@@ -94,7 +94,7 @@ class SelectSqlBuilder extends SqlBuilder implements SelectSqlBuilderInterface
         return $this->sql;
     }
     
-    public function fetchAssoc() : array
+    public function fetchAssoc()
     {
        $this->limit(1);
        $stmt = $this->buildSelectStmt();

@@ -22,6 +22,11 @@ class Request extends SymfonyRquest
         $this->siteManager = $siteManager;
     }
 
+    public function getLocaleManager(): LocaleManager
+    {
+        return $this->localeManager;
+    }
+
     public function setRoute(Route $route)
     {
         $this->route = $route;

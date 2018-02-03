@@ -18,6 +18,11 @@ class LocaleManager
         $this->localeKey = $localeKey;
     }
 
+    public function getLocaleKey()
+    {
+        return $this->localeKey;
+    }
+
     public function getMode()
     {
         return $this->localeOpts['mode'];

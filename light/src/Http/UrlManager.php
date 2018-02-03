@@ -44,7 +44,7 @@ class UrlManager
         $host = $this->request->getSiteManager()->getHost($routeInfo['site']);
 
         if ('path' === $this->request->getLocaleMode()) {
-            $localeKey = $this->request->getLocaleKey();
+            $localeKey = $this->request->getLocaleManager()->getLocaleKey();
             return $protocol . $host . '/' . $localeKey . $routeInfo['path']
                 . ($query ? ('?' . http_build_query($query)) : '');
         }
