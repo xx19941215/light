@@ -72,3 +72,18 @@ function env($key, $default = null)
 
     return $value;
 }
+
+function toSfRequest($swRequest) {
+    $query = $swRequest->get ?? [];
+    $request = $swRequest->post ?? [];
+    $cookie = $swRequest->cookie ?? [];
+    $files = $swRequest->files ?? [];
+    $content = $swRequest->rawContent() ?: null;
+
+    $server = array_change_key_case($swRequest->server, CASE_UPPER);
+    foreach ($swRequest->header as $key => $val) {
+        $server[sprintf('HTTP_%s', strtoupper(str_replace('-', '_', $key)))] = $val;
+    }
+
+    return new \Light\Http\Request($query, $request, [], $cookie, $files, $server);
+}

@@ -5,5 +5,6 @@ return [
     'server' => [
         'id' => 1
     ],
-    'i18n' => env('I18N') ?: false
+    'i18n' => env('I18N') ?: false,
+    'isSwoole' => env('SWOOLE') ?: false
 ];

@@ -15,7 +15,7 @@ trait ControllerTrait
     protected $urlManager;
     protected $params = [];
 
-    public function __construct($app, Request $request)
+    public function __construct(App $app, Request $request)
     {
         $this->app = $app;
         $this->config = $app->make('config');
