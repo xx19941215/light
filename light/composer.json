@@ -1,5 +1,5 @@
 {
-    "name": "xiao/light",
+    "name": "LightPHP",
     "authors": [
         {
             "name": "xiao",
@@ -7,6 +7,19 @@
         }
     ],
     "require": {
-
+        "nikic/fast-route": "^1.0",
+        "symfony/http-foundation": "^3.2",
+        "foil/foil": "^0.6",
+        "vlucas/phpdotenv": "~2.2"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "*",
+        "phpunit/phpunit": "^6.0",
+        "filp/whoops": "^2.1"
+    },
+    "autoload": {
+        "files": [
+            "src/Support/functions.php"
+        ]
     }
 }
