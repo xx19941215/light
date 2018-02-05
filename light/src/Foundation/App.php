@@ -4,7 +4,6 @@ namespace Light\Foundation;
 use Light\Cache\CacheManager;
 use Light\Concerns\RouteRequest;
 use Light\Config\Config;
-use Light\Config\ConfigManager;
 use Light\Container\Container;
 use Light\Database\DatabaseManager;
 use Light\Http\SiteManager;

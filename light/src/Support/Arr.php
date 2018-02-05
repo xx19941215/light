@@ -72,7 +72,7 @@ class Arr
      * @return bool
      */
      
-    public static function has($array, $key) : boolean
+    public static function has($array, $key) : bool
     {
         if (is_null($key)) {
             return false;
@@ -91,7 +91,7 @@ class Arr
         foreach ($keys as $key) {
             $subKeyArray = $array;
 
-            if (static::existes($array, $key)) {
+            if (static::exists($array, $key)) {
                 continue;
             }
 
