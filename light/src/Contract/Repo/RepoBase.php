@@ -32,8 +32,8 @@ abstract class RepoBase
 
     }
 
-    protected function dataSet(SelectSqlBuilderInterface $ssb, $dtoClass) : DateSet
+    protected function dataSet(SelectSqlBuilderInterface $ssb, $modelClass) : DateSet
     {
-        return new DateSet($ssb, $dtoClass);
+        return new DateSet($ssb, $modelClass);
     }
 }

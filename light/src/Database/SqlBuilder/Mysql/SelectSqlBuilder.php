@@ -6,14 +6,14 @@ use Light\Database\Statement\Statement;
 
 class SelectSqlBuilder extends SqlBuilder implements SelectSqlBuilderInterface
 {
-    public function listDto($dtoClass)
+    public function listModel($modelClass)
     {
         $stmt = $this->buildSelectStmt();
         $stmt->setFetchAssoc();
         $stmt->execute();
 
         while ($row = $stmt->fetch()) {
-            yield new $dtoClass($row);
+            yield new $modelClass($row);
         }
     }
 
@@ -31,10 +31,10 @@ class SelectSqlBuilder extends SqlBuilder implements SelectSqlBuilderInterface
         return $stmt->fetchAll();
     }
 
-    public function fetchDto($dtoClass)
+    public function fetchModel($modelClass)
     {
         if ($row = $this->fetchAssoc()) {
-            return new $dtoClass($row);
+            return new $modelClass($row);
         }
 
         return null;

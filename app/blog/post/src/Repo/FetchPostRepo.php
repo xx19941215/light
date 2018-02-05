@@ -1,7 +1,7 @@
 <?php
 namespace Blog\Post\Repo;
 
-use Blog\Post\Dto\PostDto;
+use Blog\Post\Model\Post;
 
 class FetchPostRepo extends RepoBase
 {
@@ -10,11 +10,11 @@ class FetchPostRepo extends RepoBase
         return $this->cnn->select()
             ->from('wp_posts')
             ->where('id', '=', $id)
-            ->fetchDto(PostDto::class);
+            ->fetchModel(Post::class);
 
     }
 
-    public function fetchPrev(PostDto $post)
+    public function fetchPrev(Post $post)
     {
         $ssb = $this->cnn->select()
             ->from('wp_posts')
@@ -24,10 +24,10 @@ class FetchPostRepo extends RepoBase
             ->orderBy('post_date', 'desc')
             ->limit(1);
 
-       return $this->dataSet($ssb, PostDto::class);
+       return $this->dataSet($ssb, Post::class);
     }
 
-    public function fetchNext(PostDto $post)
+    public function fetchNext(Post $post)
     {
         $ssb = $this->cnn->select()
             ->from('wp_posts')
@@ -37,6 +37,6 @@ class FetchPostRepo extends RepoBase
             ->orderBy('post_date', 'desc')
             ->limit(1);
 
-       return $this->dataSet($ssb, PostDto::class);
+       return $this->dataSet($ssb, Post::class);
     }
 }

@@ -7,20 +7,20 @@ use Light\Database\Exception\DatabaseException;
 class DateSet implements \JsonSerializable
 {
     protected $ssb;
-    protected $dtoClass;
+    protected $modelClass;
 
     protected $currentPage;
     protected $itemCount;
     protected $pageCount;
     protected $countPerPage = 10;
 
-    public function __construct(SelectSqlBuilderInterface $ssb, $dtoClass = '')
+    public function __construct(SelectSqlBuilderInterface $ssb, $modelClass = '')
     {
-       if (!class_exists($dtoClass)) {
-           throw new DatabaseException("$dtoClass not exist");
+       if (!class_exists($modelClass)) {
+           throw new DatabaseException("$modelClass not exist");
        }
 
-       $this->dtoClass = $dtoClass;
+       $this->modelClass = $modelClass;
        $this->ssb = $ssb;
     }
 
@@ -36,8 +36,8 @@ class DateSet implements \JsonSerializable
             ->limit($this->countPerPage)
             ->offset(($this->getCurrentPage() - 1) * $this->countPerPage);
 
-        if ($this->dtoClass) {
-            return $this->ssb->listDto($this->dtoClass);
+        if ($this->modelClass) {
+            return $this->ssb->listModel($this->modelClass);
         }
 
         return $this->ssb->listObj();

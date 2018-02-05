@@ -1,7 +1,7 @@
 <?php
-namespace Light\Contract\Dto;
+namespace Light\Contract\Model;
 
-abstract class DtoBase implements \JsonSerializable
+abstract class ModelBase implements \JsonSerializable
 {
     public function __construct($data = [])
     {
@@ -28,15 +28,15 @@ abstract class DtoBase implements \JsonSerializable
         if ($flagPos = strpos($key, '_')) {
             $subKey = substr($key, $flagPos + 1);
 
-            $dtoName = substr($key, 0, $flagPos);
-            if ($this->$dtoName) {
-                $this->$dtoName->$subKey = $value;
+            $modelName = substr($key, 0, $flagPos);
+            if ($this->$modelName) {
+                $this->$modelName->$subKey = $value;
                 return;
             }
 
-            $getDtoFun = 'get' . $dtoName;
-            if ($dto = $this->$getDtoFun()) {
-                $dto->$subKey = $value;
+            $getModelFun = 'get' . $modelName;
+            if ($model = $this->$getModelFun()) {
+                $model->$subKey = $value;
                 return;
             }
 

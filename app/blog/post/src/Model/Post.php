@@ -1,7 +1,7 @@
 <?php
-namespace Blog\Post\Dto;
+namespace Blog\Post\Model;
 
-class PostDto extends DtoBase
+class Post extends ModelBase
 {
     public $ID;
     public $post_author;

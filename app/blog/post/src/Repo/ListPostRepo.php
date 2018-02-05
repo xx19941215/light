@@ -1,7 +1,7 @@
 <?php
 namespace Blog\Post\Repo;
 
-use Blog\Post\Dto\PostDto;
+use Blog\Post\Model\Post;
 
 class ListPostRepo extends RepoBase
 {
@@ -14,6 +14,6 @@ class ListPostRepo extends RepoBase
             ->orderBy('post_date', 'desc')
             ->limit(15);
 
-        return $this->dataSet($ssb, PostDto::class);
+        return $this->dataSet($ssb, Post::class);
     }
 }

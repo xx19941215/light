@@ -4,8 +4,8 @@ namespace Light\Contract\Database\SqlBuilder;
 interface SelectSqlBuilderInterface
 {
     public function count();
-    public function listDto($dtoClass);
-    public function fetchDto($dtoClass);
+    public function listModel($modelClass);
+    public function fetchModel($modelClass);
     public function listObj();
     public function fetchObjOne();
     public function listAssoc();

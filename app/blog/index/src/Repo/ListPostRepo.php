@@ -1,7 +1,7 @@
 <?php
 namespace Blog\Index\Repo;
 
-use Blog\Index\Dto\PostDto;
+use Blog\Index\Model\Post;
 
 class ListPostRepo extends RepoBase
 {
@@ -13,6 +13,6 @@ class ListPostRepo extends RepoBase
             ->andWhere('post_type', '=', 'post')
             ->orderBy('post_date', 'desc');
 
-        return $this->dataSet($ssb, PostDto::class);
+        return $this->dataSet($ssb, Post::class);
     }
 }

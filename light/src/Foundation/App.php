@@ -88,13 +88,6 @@ class App extends Container
         });
     }
 
-    protected function registerConfigManagerBindings()
-    {
-        $this->singleton('configManager', function () {
-            return new ConfigManager($this);
-        });
-    }
-
     protected function registerCacheManagerBindings()
     {
         $this->singleton('cacheManager', function () {
@@ -216,7 +209,6 @@ class App extends Container
 
     public $availableBindings = [
         'config' => 'registerConfigBindings',
-        'configManager' => 'registerConfigManagerBindings',
         'cacheManager' => 'registerCacheManagerBindings',
         'cache.store' => 'registerCacheManagerBindings',
         'databaseManager' => 'registerDatabaseManagerBindings',

@@ -25,13 +25,13 @@ class Statement
         return $this;
     }
 
-    public function setFetchDto($dtoClass) : self
+    public function setFetchModel($modelClass) : self
     {
-        if (!class_exists($dtoClass)) {
-            throw new DatabaseException("cannot find dto class $dtoClass");
+        if (!class_exists($modelClass)) {
+            throw new DatabaseException("cannot find Model class $modelClass");
         }
 
-        $this->stmt->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, $dtoClass);
+        $this->stmt->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, $modelClass);
         return $this;
     }
 

@@ -3,9 +3,9 @@ namespace Light\Http;
 
 use Light\I18n\Locale\LocaleManager;
 use Light\Routing\Route;
-use Symfony\Component\HttpFoundation\Request as SymfonyRquest;
+use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 
-class Request extends SymfonyRquest
+class Request extends SymfonyRequest
 {
     protected $route;
     protected $siteManager;
