@@ -247,6 +247,7 @@ class App extends Container
         'cacheManager' => 'registerCacheManagerBindings',
         'cache.store' => 'registerCacheManagerBindings',
         'databaseManager' => 'registerDatabaseManagerBindings',
+        'db.connection' => 'registerDatabaseManagerBindings',
         'localeManager' => 'registerLocaleManagerBindings',
         'siteManager' => 'registerSiteManagerBindings',
         'meta' => 'registerMetaBindings',
