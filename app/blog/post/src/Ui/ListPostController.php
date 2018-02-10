@@ -2,6 +2,8 @@
 namespace Blog\Post\Ui;
 
 use Blog\Post\Service\ListPostService;
+use Light\Http\Exceptions\HttpResponseException;
+use Symfony\Component\HttpFoundation\Response;
 
 class ListPostController extends ControllerBase
 {
@@ -14,6 +16,9 @@ class ListPostController extends ControllerBase
             $posts->setCurrentPage($page);
         }
 
-        return $this->view('page/post/list', compact('posts'));
+        $response = new Response(HttpResponseException::class);
+        throw new HttpResponseException($response);
+
+//        return $this->view('page/post/list', compact('posts'));
     }
 }

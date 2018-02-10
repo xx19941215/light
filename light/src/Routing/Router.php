@@ -2,6 +2,7 @@
 namespace Light\Routing;
 
 use Light\Http\Request;
+use Light\Routing\Exceptions\RouteNotFoundException;
 use Light\Tool\IncludeTrait;
 use Light\Routing\AddRouteTrait;
 use Light\Routing\RouteCollector;
@@ -130,7 +131,7 @@ class Router
            }
        }
 
-        throw new \Exception("Route Not Found: $routeName");
+        throw new RouteNotFoundException("Route Not Found: $routeName");
 
     }
 

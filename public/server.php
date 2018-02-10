@@ -4,6 +4,7 @@ $app = require __DIR__ . '/../bootstrap/app.php';
 $app->configure('swoole');
 
 $swooleConfig = $app->make('config')->get('swoole');
+$app->inSwoole = true;
 
 $http = new swoole_http_server('127.0.0.1', '8888');
 

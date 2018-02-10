@@ -10,13 +10,15 @@ try {
     //
 }
 
-if (env('APP_DEBUG')) {
-    $whoops = new \Whoops\Run;
-    $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
-    $whoops->register();
-}
+//if (env('APP_DEBUG')) {
+//    $whoops = new \Whoops\Run;
+//    $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+//    $whoops->register();
+//}
 
 $app = new \Light\Foundation\App($basePath);
 
+$app->singleton(\Light\Contract\Debug\ExceptionHandler::class,
+    Blog\Startup\Exceptions\Handler::class);
 
 return $app;

@@ -1,10 +1,12 @@
 <?php
 namespace Blog\Auth\Ui;
 
+use Symfony\Component\HttpFoundation\Response;
+
 class LoginController extends ControllerBase
 {
     public function show()
     {
-        dd('hello world');
+        return new Response('hello');
     }
 }

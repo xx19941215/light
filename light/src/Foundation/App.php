@@ -2,7 +2,8 @@
 namespace Light\Foundation;
 
 use Light\Cache\CacheManager;
-use Light\Concerns\RouteRequest;
+use Light\Concerns\RegistersExceptionHandlers;
+use Light\Concerns\RoutesRequest;
 use Light\Config\Config;
 use Light\Container\Container;
 use Light\Database\DatabaseManager;
@@ -11,20 +12,27 @@ use Light\Http\UrlManager;
 use Light\I18n\Locale\LocaleManager;
 use Light\Meta\Meta;
 use Light\Routing\RouterManager;
+use Monolog\Formatter\LineFormatter;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 
 class App extends Container
 {
-    use RouteRequest;
+    use RoutesRequest,
+        RegistersExceptionHandlers;
 
     public $basePath;
     protected $router;
     protected $ranServiceBinders = [];
     protected $loadedConfigurations = [];
+    public $inSwoole = false;
+    protected $monologConfigurator;
 
     public function __construct($basePath = '')
     {
         $this->basePath = $basePath;
         $this->bootstrapContainer();
+        $this->registerErrorHandling();
         $this->bootstrapRouter();
     }
 
@@ -67,6 +75,7 @@ class App extends Container
             'Light\Meta\Meta' => 'meta',
             'Light\Routing\Router' => 'router',
             'request' => 'Light\Http\Request',
+            'log' => 'Psr\Log\LoggerInterface',
         ];
     }
 
@@ -186,6 +195,28 @@ class App extends Container
         }
     }
 
+    protected function registerLogBindings()
+    {
+        $this->singleton('Psr\Log\LoggerInterface', function () {
+            if ($this->monologConfigurator) {
+                return call_user_func($this->monologConfigurator, new Logger('light'));
+            } else {
+                return new Logger('light', [$this->getMonologHandler()]);
+            }
+        });
+    }
+
+    protected function getMonologHandler()
+    {
+        return (new StreamHandler(storage_path('logs/light.log'), Logger::DEBUG))
+            ->setFormatter(new LineFormatter(null, null, true, true));
+    }
+
+    public function storagePath($path = '')
+    {
+        return $this->basePath().'/storage'.($path ? '/'.$path : $path);
+    }
+
     public function basePath($path = null)
     {
         if (isset($this->basePath)) {
@@ -206,6 +237,11 @@ class App extends Container
         return php_sapi_name() == 'cli';
     }
 
+    public function runningInSwoole()
+    {
+        return $this->inSwoole;
+    }
+
     public $availableBindings = [
         'config' => 'registerConfigBindings',
         'cacheManager' => 'registerCacheManagerBindings',
@@ -217,6 +253,8 @@ class App extends Container
         'router' => 'registerRouterBindings',
         'urlManager' => 'registerUrlManagerBindings',
         'routerManager' => 'registerRouterManagerBindings',
+        'log' => 'registerLogBindings',
+        'Psr\Log\LoggerInterface' => 'registerLogBindings',
     ];
 
 }

@@ -2,9 +2,10 @@
 namespace Light\Concerns;
 
 use Light\Http\Request;
+use Light\I18n\Exceptions\LocaleNotFoundException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
-trait RouteRequest
+trait RoutesRequest
 {
     protected $currentRoute;
     protected $dispatcher;
@@ -22,7 +23,7 @@ trait RouteRequest
             if (!$localeKey) {
                 if ($path !== '/') {
                     //todo
-                    throw new \Exception('localeNotFound');
+                    throw new LocaleNotFoundException('localeNotFound');
                 }
 
                 return $this->gotoLocaleResponse($request);
@@ -38,13 +39,13 @@ trait RouteRequest
 
         $route = $this->router->dispatch($request);
 
-        try {
+//        try {
             $this->currentRoute = $route;
             $request->setRoute($route);
             return $this->callControllerAction($request);
-        } catch (\Exception $e) {
-            throw $e;
-        }
+//        } catch (\Exception $e) {
+//            throw $e;
+//        }
     }
 
     protected function gotoLocaleResponse($request)
@@ -54,7 +55,7 @@ trait RouteRequest
         }
 
         //todo
-        throw new \Exception('localeNotFound');
+        throw new LocaleNotFoundException('localeNotFound');
     }
 
     protected function getLocaleUrl(Request $request)

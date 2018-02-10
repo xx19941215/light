@@ -150,4 +150,25 @@ class Container
 
         return $this->getAlias($this->aliases[$abstract]);
     }
+
+    public function bound($abstract)
+    {
+        return isset($this->bindings[$abstract]) ||
+            isset($this->instances[$abstract]) ||
+            $this->isAlias($abstract);
+    }
+
+    public function isAlias($name)
+    {
+        return isset($this->aliases[$name]);
+    }
+
+    public static function getInstance()
+    {
+        if (is_null(static::$instance)) {
+            static::$instance = new static;
+        }
+
+        return static::$instance;
+    }
 }

@@ -19,17 +19,31 @@ function obj($obj)
     return $obj;
 }
 
-function app($baseDir = '', $type = 'http')
+function app($make = null)
 {
-    static $app;
-    if ($app) {
-        return $app;
+    if (is_null($make)) {
+        return \Light\Container\Container::getInstance();
     }
 
-    if ($type == 'http') {
-        $app =  new \Light\App\Http\HttpApp($baseDir);
-        return $app;
+    return \Light\Container\Container::getInstance()->make($make);
+}
+
+function config($key = null, $default = null)
+{
+    if (is_null($key)) {
+        return app('config');
     }
+
+    if (is_array($key)) {
+        return app('config')->set($key);
+    }
+
+    return app('config')->get($key, $default);
+}
+
+function storage_path($path = '')
+{
+    return app()->storagePath($path);
 }
 
 function prop($arr, $key, $default = '')
