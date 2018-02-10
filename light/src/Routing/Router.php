@@ -2,6 +2,7 @@
 namespace Light\Routing;
 
 use Light\Http\Request;
+use Light\Routing\Exceptions\RouteMethodNotAllowedException;
 use Light\Routing\Exceptions\RouteNotFoundException;
 use Light\Tool\IncludeTrait;
 use Light\Routing\AddRouteTrait;
@@ -68,10 +69,10 @@ class Router
 
         switch ($res[0]) {
             case Dispatcher::NOT_FOUND:
-                throw new \Exception('route not found');
+                throw new RouteNotFoundException('route not found');
                 break;
             case Dispatcher::METHOD_NOT_ALLOWED:
-                throw new \Exception('route method not allowed');
+                throw new RouteMethodNotAllowedException('route method not allowed');
                 break;
             case Dispatcher::FOUND:
                 $route = $this->routeMap[$res[1]['name']][$res[1]['mode']][$res[1]['method']];
