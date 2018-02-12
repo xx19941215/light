@@ -171,4 +171,9 @@ class Container
 
         return static::$instance;
     }
+
+    public function call($callback, array $parameters = [], $defaultMethod = null)
+    {
+       return BoundMethod::call($this, $callback, $parameters, $defaultMethod);
+    }
 }

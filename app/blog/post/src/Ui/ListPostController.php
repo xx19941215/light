@@ -5,10 +5,10 @@ use Blog\Post\Service\ListPostService;
 
 class ListPostController extends ControllerBase
 {
-    public function show()
+    public function show(ListPostService $listPostService)
     {
         $page = $this->request->get('page') ?: 1;
-        $posts = obj(new ListPostService($this->app))->list();
+        $posts = $listPostService->list();
 
         if ($page) {
             $posts->setCurrentPage($page);
