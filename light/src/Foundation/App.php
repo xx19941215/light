@@ -12,6 +12,7 @@ use Light\Http\UrlManager;
 use Light\I18n\Locale\LocaleManager;
 use Light\Meta\Meta;
 use Light\Routing\RouterManager;
+use Light\View\ViewManager;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -206,6 +207,13 @@ class App extends Container
         });
     }
 
+    protected function registerViewManagerBindings()
+    {
+        $this->singleton('viewManager', function () {
+            return new ViewManager($this);
+        });
+    }
+
     protected function getMonologHandler()
     {
         return (new StreamHandler(storage_path('logs/light.log'), Logger::DEBUG))
@@ -255,6 +263,7 @@ class App extends Container
         'urlManager' => 'registerUrlManagerBindings',
         'routerManager' => 'registerRouterManagerBindings',
         'log' => 'registerLogBindings',
+        'viewManager' => 'registerViewManagerBindings',
         'Psr\Log\LoggerInterface' => 'registerLogBindings',
     ];
 

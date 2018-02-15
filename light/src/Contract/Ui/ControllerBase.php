@@ -1,8 +1,6 @@
 <?php
 namespace Light\Contract\Ui;
 
-use Foil\Engine;
-use Foil\Foil;
 use Light\Contract\Controller\ControllerTrait;
 use Light\View\RegisterMeta;
 use Light\View\RegisterUrl;
@@ -24,7 +22,8 @@ abstract class ControllerBase
 
     protected function render($tpl, $data = []) : string
     {
-        $viewEngine = $this->getViewEngine();
+        $viewEngine = app('viewManager')->getViewEngine();
+
         $viewEngine->useData([
             'app' => $this->getApp(),
             'config' => $this->getConfig(),
@@ -34,29 +33,6 @@ abstract class ControllerBase
 
         obj(new RegisterMeta($viewEngine))->register($this->getMeta());
         obj(new RegisterUrl($viewEngine))->register($this->getUrlManager());
-        $this->engineRegister($viewEngine);
         return $viewEngine->render($tpl, $data);
-    }
-
-    protected function engineRegister($viewEngine)
-    {
-        if (!$viewEngine) {
-            throw new \Exception('View engine cannot be empty');
-        }
-    }
-
-    protected function getViewEngine() : Engine
-    {
-        $requestApp = $this->getRequest()->getRoute()->getApp();
-
-        $basePath = $this->app->basePath;
-
-        $folders[] = $basePath . '/resources/views';
-//        $folders[] = $baseDir . $this->config->get("app.{$requestApp}.dir") . "/view";
-        return Foil::boot([
-            'folders' => $folders,
-            'autoescape' => false,
-            'ext' => 'phtml'
-        ])->engine();
     }
 }
