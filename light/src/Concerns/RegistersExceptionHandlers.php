@@ -10,8 +10,11 @@ trait RegistersExceptionHandlers
 {
     public function registerErrorHandling()
     {
+
+        // Report all PHP errors
         error_reporting(-1);
 
+        //使用set_error_handler()函数将错误信息托管至ErrorException
         set_error_handler(function ($level, $message, $file = '', $line = 0) {
             if (error_reporting() & $level) {
                 throw new \ErrorException($message, 0, $level, $file, $line);
