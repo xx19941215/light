@@ -125,7 +125,7 @@ class Config implements \ArrayAccess
     
 }
 ```
-Config类实现了ArrayAccess,可以使用类似访问数组一样的方式访问配置文件。
+Config类实现了ArrayAccess，可以使用类似访问数组一样的方式访问配置文件。
 
 [light/Config/Config.php](https://github.com/xx19941215/light/blob/master/light/src/Config/Config.php)
 
@@ -231,3 +231,60 @@ Light核心实(chao)现(xi)了一个小巧的服务容器。基本attributes和m
 
 [light/Foundation/App.php](https://github.com/xx19941215/light/blob/master/light/src/Foundation/App.php)
 
+## MVC To MVSC
+
+软件从处理一件事务发展到了要处理许多事务，各事务间有包含、顺序、主次等等的关系，变得越来越复杂。因为数据与逻辑庞大了，所以在Light中，除了传统的MVC三层结构，推荐新增一层Service层来处理繁琐的业务逻辑。
+这个时候，Controller层可以根据设备的不同展示不同的View，但是Service层的业务逻辑得到了复用。
+在Light中，App可以由如下结构组成：
+
+- Model: 作为数据库表的字段的映射存在
+- Repo: 执行Model的crud操作
+- Controller: 处理Service分发的数据和view的展示
+- Service: 处理业务逻辑
+- View: 视图
+
+## PHPUnit
+基于PHPUnit，Light将会持续完善测试。运行如下的命令即可开始
+```php
+./vendor/bin/phpunit
+```
+
+测试栗子
+
+```php
+class ConfigTest extends TestCase
+{
+    protected $config;
+    protected $data;
+
+    public function setUp()
+    {
+        $this->config = new Config($this->data = [
+            'foo' => 'bar',
+            'bar' => 'baz',
+            'baz' => 'bat',
+            'null' => null,
+            'associate' => [
+                'x' => 'xxx',
+                'y' => 'yyy',
+            ],
+            'array' => [
+                'aaa',
+                'zzz',
+            ],
+            'x' => [
+                'z' => 'zoo',
+            ],
+        ]);
+
+        parent::setUp();
+    }
+
+    public function testConstruct()
+    {
+        $this->assertInstanceOf(Config::class, $this->config);
+    }
+}
+```
+
+[light/tests/ConfigTest.php](https://github.com/xx19941215/light/blob/master/light/tests/Config/ConfigTest.php)
