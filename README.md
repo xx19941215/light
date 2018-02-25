@@ -115,9 +115,16 @@ $response->send();
 ##  配置文件模块
 
 加载框架自定义和用户自定义的配置文件。
+```php
+class Config implements \ArrayAccess
+{
+    
+}
+```
+Config类实现了ArrayAccess,可以使用类似访问数组一样的方式访问配置文件。
 
 ##  路由模块
-
+用法如下
 ```
 $this
     //路由站点
@@ -138,13 +145,76 @@ $this
 ## 对象关系映射
 
 Object Relation Mapping, 其主要作用是在编程中，把面向对象的概念跟数据库中表的概念对应起来。举例来说就是，我定义一个对象，那就对应着一张表，这个对象的实例，就对应着表中的一条记录。在框架中，实现了对常用SQL操作的链式封装。后续将会通过操作对象直接完成数据库操作。
+在Light中一个SELECT查询的基本用法
 
+在Repo的子类中
+```php
+$ssb = $this->cnn->select()
+            ->from('wp_posts')
+            ->where('post_status', '=', 'publish')
+            ->andWhere('post_type', '=', 'post')
+            ->orderBy('post_date', 'desc')
+            ->limit(15);
+```
+
+在没有继承Repo的地方(例如View中)，可以通过DB的Facade使用
+
+```php
+$ssb = DB::select()
+            ->from('wp_posts')
+            ->where('post_status', '=', 'publish')
+            ->andWhere('post_type', '=', 'post')
+            ->orderBy('post_date', 'desc')
+            ->limit(15);
+```
+
+返回`DataSet`。
+```php
+return $this->dataSet($ssb, Post::class);
+```
+
+在没有继承Repo的地方，可以通过`collect`函数使用。
+
+输出文章标题列表
+```php
+foreach ($posts as $post) {
+    echo $post->title . PHP_EOL;
+}
+```
 ##  服务容器模块
 
-什么是服务容器？
 Light的核心就是一个服务容器。服务容器提供了整个框架中需要的一系列服务。
 在我们的日常开发中，创建对象的操作随处可见以至于对其十分熟悉的同时又感觉十分繁琐，每次需要对象都需要亲手将其new出来，这是相当糟糕的。但更为严重的是，我们一直倡导的松耦合，少入侵原则，这种情况下变得一无是处。
 
-服务容器的意义？
 说到服务容器，不得不提到的就是控制反转，简称为IOC，这是一个常用的设计模式。依赖注入是实现IOC的一种方式。
+
+Light核心实(chao)现(xi)了一个简单的服务容器。基本attributes和methods如下
+
+```
+- attributes
+    + bindings 抽象和实现之间的映射数组
+    + _instance 容器静态实例
+    # instances 服务实例数组
+    # aliases 服务别名
+    
+- methods
+    + bind 绑定abstract和concrete
+    + getClosure 返回服务Closure便于统一管理
+    + make 生成服务
+    # getConcrete 返回服务的具体实现
+    + build 构建服务对象
+    # getDependencies 从服务容器拿到build时的dependencies
+    # resolveClass 获得给定class的实例
+    # isBuildable 判断当前服务是否可以构建
+    + singleton 单例缓存服务
+    + _setInstance 单例缓存当前容器实例
+    + instance 保存实例
+    + isShared 当前服务实例是否可以共享
+    # dropStaleInstances 删除过期绑定
+    + getAlias 获得服务别名
+    + bound 服务是否已经注册
+    + isAlias 服务是否有别名
+    + _getInstance 获得容器实例
+    + call 获取容器服务，实现控制器调用时的依赖注入
+```
 

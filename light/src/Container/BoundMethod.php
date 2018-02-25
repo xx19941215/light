@@ -32,12 +32,8 @@ class BoundMethod
 
     protected static function callBoundMethod($container, $callback, $default)
     {
+        //todo
         return $default instanceof \Closure ? $default() : $default;
-    }
-
-    protected static function normalizeMethod($callback)
-    {
-
     }
 
     protected static function getMethodDependencies($container, $callback, array $parameters = [])

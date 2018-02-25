@@ -43,7 +43,7 @@ class Handler implements ExceptionHandler
         // todo
     }
 
-    public function render($request, \Exception $e)
+    public function render($request, \Exception $e): Response
     {
         $headers =  [];
         $statusCode = 500;

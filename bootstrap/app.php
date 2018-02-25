@@ -15,4 +15,6 @@ $app = new \Light\Foundation\App($basePath);
 $app->singleton(\Light\Contract\Debug\ExceptionHandler::class,
     Blog\Startup\Exceptions\Handler::class);
 
+$app->withFacades();
+
 return $app;

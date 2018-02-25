@@ -96,7 +96,7 @@ class Arr
             }
 
             foreach (explode('.', $key) as $segment) {
-                if (static::accessible($subKeyArray) && static::existes($subKeyArray, $segment)) {
+                if (static::accessible($subKeyArray) && static::exists($subKeyArray, $segment)) {
                     $subKeyArray = $subKeyArray[$segment];
                 } else {
                     return false;

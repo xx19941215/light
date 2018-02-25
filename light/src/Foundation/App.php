@@ -12,6 +12,7 @@ use Light\Http\UrlManager;
 use Light\I18n\Locale\LocaleManager;
 use Light\Meta\Meta;
 use Light\Routing\RouterManager;
+use Light\Support\Facades\Facade;
 use Light\View\ViewManager;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\StreamHandler;
@@ -117,6 +118,7 @@ class App extends Container
         });
 
         $this->singleton('db.connection', function ($app, $name) {
+            if (count($name) == 0) $name = 'default';
             return $app->make('databaseManager')->connect($name);
         });
     }
@@ -238,6 +240,11 @@ class App extends Container
         }
 
         return $this->basePath($path);
+    }
+
+    public function withFacades()
+    {
+        Facade::setFacadeApplication($this);
     }
 
     public function runningInConsole()

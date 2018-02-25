@@ -3,6 +3,7 @@ namespace Light\Database;
 
 use Light\Config\Config;
 use Light\Database\Exception\DatabaseException;
+use Light\Foundation\App;
 
 class DatabaseManager
 {
@@ -12,12 +13,18 @@ class DatabaseManager
 
     public function __construct(Config $config)
     {
+        if (!$config->has('database')) {
+            app()->configure('database');
+        }
+
         $this->optsSet = $config->get('database');
         $this->serverId = $config->get('server.id');
     }
 
-    public function connect($name)
+    public function connect($name = null)
     {
+        $name = $name ?? 'default';
+
         if (isset($this->connections[$name])) {
             return $this->connections[$name];
         }

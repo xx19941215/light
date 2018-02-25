@@ -2,11 +2,9 @@
 namespace Light\Config;
 
 use Light\Support\Arr;
-use Light\Tool\IncludeTrait;
 
 class Config implements \ArrayAccess
 {
-    use IncludeTrait;
     protected $items = [];
 
     public function __construct(array $items = [])

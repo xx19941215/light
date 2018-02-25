@@ -2,7 +2,7 @@
 
 namespace Light\Container;
 
-class Container
+class Container implements \ArrayAccess
 {
     public $bindings = [];
     public static $instance;
@@ -174,6 +174,31 @@ class Container
 
     public function call($callback, array $parameters = [], $defaultMethod = null)
     {
-       return BoundMethod::call($this, $callback, $parameters, $defaultMethod);
+        return BoundMethod::call($this, $callback, $parameters, $defaultMethod);
+    }
+
+    public function offsetExists($key)
+    {
+        return $this->bound($key);
+    }
+
+
+    public function offsetGet($key)
+    {
+        return $this->make($key);
+    }
+
+
+    public function offsetSet($key, $value)
+    {
+        $this->bind($key, $value instanceof \Closure ? $value : function () use ($value) {
+            return $value;
+        });
+    }
+
+    public function offsetUnset($key)
+    {
+        unset($this->bindings[$key], $this->instances[$key]);
+
     }
 }
