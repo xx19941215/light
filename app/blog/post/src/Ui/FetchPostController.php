@@ -5,15 +5,15 @@ use Blog\Post\Service\FetchPostService;
 
 class FetchPostController extends ControllerBase
 {
-    public function show()
+    public function show(FetchPostService $fetchPostService)
     {
         $id = $this->getParam('id');
 
-        $post = obj(new FetchPostService($this->app))->fetch($id);
+        $post = $fetchPostService->fetch($id);
 
-        $prevPost = obj(new FetchPostService($this->app))->fetchPrev($post)->getItems()->current();
+        $prevPost = $fetchPostService->fetchPrev($post)->getItems()->current();
 
-        $nextPost = obj(new FetchPostService($this->app))->fetchNext($post)->getItems()->current();
+        $nextPost = $fetchPostService->fetchNext($post)->getItems()->current();
 
         return $this->view('page/post/show', compact('post', 'prevPost', 'nextPost'));
     }

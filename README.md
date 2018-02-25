@@ -100,6 +100,7 @@ $response = $app->handle($request);
 //发送response
 $response->send();
 ```
+[public/index.php](https://github.com/xx19941215/light/blob/master/public/index.php)
 ##  错误和异常模块
 
 脚本运行期间：
@@ -112,6 +113,9 @@ $response->send();
 
 通过函数set_exception_handler注册未捕获异常处理方法，目的捕获未捕获的异常，例如返回友好的提示和异常信息。
 
+
+[light/Concerns/RegistersExceptionHandlers.php](https://github.com/xx19941215/light/blob/master/light/src/Concerns/RegistersExceptionHandlers.php)
+
 ##  配置文件模块
 
 加载框架自定义和用户自定义的配置文件。
@@ -122,6 +126,8 @@ class Config implements \ArrayAccess
 }
 ```
 Config类实现了ArrayAccess,可以使用类似访问数组一样的方式访问配置文件。
+
+[light/Config/Config.php](https://github.com/xx19941215/light/blob/master/light/src/Config/Config.php)
 
 ##  路由模块
 用法如下
@@ -142,6 +148,8 @@ $this
     );
 ```
 
+[app/blog/post/setting/router/post.php](https://github.com/xx19941215/light/blob/master/app/blog/post/setting/router/post.php)
+
 ## 对象关系映射
 
 Object Relation Mapping, 其主要作用是在编程中，把面向对象的概念跟数据库中表的概念对应起来。举例来说就是，我定义一个对象，那就对应着一张表，这个对象的实例，就对应着表中的一条记录。在框架中，实现了对常用SQL操作的链式封装。后续将会通过操作对象直接完成数据库操作。
@@ -157,7 +165,7 @@ $ssb = $this->cnn->select()
             ->limit(15);
 ```
 
-在没有继承Repo的地方(例如View中)，可以通过DB的Facade使用
+在没有继承Repo的地方(例如View中)，可以通过DB的[`Facade`](https://github.com/xx19941215/light/blob/master/light/src/Support/Facades/DB.php)使用
 
 ```php
 $ssb = DB::select()
@@ -168,16 +176,19 @@ $ssb = DB::select()
             ->limit(15);
 ```
 
-返回`DataSet`。
+返回[`DataSet`](https://github.com/xx19941215/light/blob/master/light/src/Database/DateSet.php)。
+
+[app/blog/post/src/repo/ListPostRepo.php](https://github.com/xx19941215/light/blob/master/app/blog/post/src/Repo/ListPostRepo.php)
+
 ```php
 return $this->dataSet($ssb, Post::class);
 ```
 
-在没有继承Repo的地方，可以通过`collect`函数生成DataSet。
+在没有继承Repo的地方，可以通过[`collect`](https://github.com/xx19941215/light/blob/master/light/src/Support/functions.php)函数生成DataSet。
 
 输出文章标题列表
 ```php
-foreach ($posts as $post) {
+foreach ($posts->getItems() as $post) {
     echo $post->title . PHP_EOL;
 }
 ```
@@ -188,7 +199,7 @@ Light的核心就是一个服务容器。服务容器提供了整个框架中需
 
 说到服务容器，不得不提到的就是控制反转，简称为IOC，这是一个常用的设计模式。依赖注入是实现IOC的一种方式。
 
-Light核心实(chao)现(xi)了一个简单的服务容器。基本attributes和methods如下
+Light核心实(chao)现(xi)了一个小巧的服务容器。基本attributes和methods如下
 
 ```
 - attributes
@@ -217,4 +228,6 @@ Light核心实(chao)现(xi)了一个简单的服务容器。基本attributes和m
     + _getInstance 获得容器实例
     + call 获取容器服务，实现控制器调用时的依赖注入
 ```
+
+[light/Foundation/App.php](https://github.com/xx19941215/light/blob/master/light/src/Foundation/App.php)
 
