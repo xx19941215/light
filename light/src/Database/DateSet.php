@@ -16,12 +16,12 @@ class DateSet implements \JsonSerializable
 
     public function __construct(SelectSqlBuilderInterface $ssb, $modelClass = '')
     {
-       if (!class_exists($modelClass)) {
-           throw new DatabaseException("$modelClass not exist");
-       }
+        if (!class_exists($modelClass)) {
+            throw new DatabaseException("$modelClass not exist");
+        }
 
-       $this->modelClass = $modelClass;
-       $this->ssb = $ssb;
+        $this->modelClass = $modelClass;
+        $this->ssb = $ssb;
     }
 
     public function setCountPerPage($count) : self

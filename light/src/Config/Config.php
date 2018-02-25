@@ -49,7 +49,6 @@ class Config implements \ArrayAccess
         }
 
         throw new \RuntimeException('config::set error format');
-
     }
 
     public function all()

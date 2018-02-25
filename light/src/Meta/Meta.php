@@ -13,8 +13,8 @@ class Meta
 
     public function __construct(MysqlConnection $cnn, \Redis $redis)
     {
-       $this->cnn = $cnn;
-       $this->cache = $redis;
+        $this->cnn = $cnn;
+        $this->cache = $redis;
     }
 
     public function setDefaultLocaleKey($localeKey)
@@ -24,30 +24,30 @@ class Meta
 
     public function get($str, $vars = [], $localeKey = '')
     {
-       if (!$localeKey) {
-           $localeKey = $this->defaultLocaleKey;
-       }
+        if (!$localeKey) {
+            $localeKey = $this->defaultLocaleKey;
+        }
 
-       if (!$vars) {
-          return $this->lget($str, $localeKey);
-       }
+        if (!$vars) {
+            return $this->lget($str, $localeKey);
+        }
 
-       if (is_string($vars)) {
-           $vars = [$vars];
-       }
+        if (is_string($vars)) {
+            $vars = [$vars];
+        }
 
-       $index = 1;
-       $args = [];
-       $args[0] = '';
+        $index = 1;
+        $args = [];
+        $args[0] = '';
 
-       foreach ($vars as $val) {
-          $str .= "-%$index" . '$s';
-          $args[$index] = $val;
-          $index++;
-       }
+        foreach ($vars as $val) {
+            $str .= "-%$index" . '$s';
+            $args[$index] = $val;
+            $index++;
+        }
 
-       $args[0] = $this->lget($str, $localeKey);
-       return sprintf(...$args);
+        $args[0] = $this->lget($str, $localeKey);
+        return sprintf(...$args);
     }
 
     protected function lget($metaKey, $localeKey)
@@ -74,7 +74,6 @@ class Meta
         $metaValue = '#' . $metaKey;
         $this->set($localeKey, $metaKey, $metaValue);
         return $metaValue;
-        
     }
 
     public function set($localeKey, $metaKey, $metaValue)
@@ -107,7 +106,7 @@ class Meta
             ->fetchObjOne();
 
         if (!$obj) {
-           return null;
+            return null;
         }
 
         return $obj->value;
@@ -131,5 +130,4 @@ class Meta
                 ->value('value', $metaValue)
                 ->execute();
     }
-
 }

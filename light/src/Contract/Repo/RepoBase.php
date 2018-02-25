@@ -29,7 +29,6 @@ abstract class RepoBase
 
     protected function getFieldType($fieldName)
     {
-
     }
 
     protected function dataSet(SelectSqlBuilderInterface $ssb, $modelClass) : DateSet

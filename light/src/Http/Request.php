@@ -35,11 +35,11 @@ class Request extends SymfonyRequest
 
     public function getLocaleKey()
     {
-       if ($localeKey = $this->attributes->get('localeKey')) {
-           return $localeKey;
-       }
+        if ($localeKey = $this->attributes->get('localeKey')) {
+            return $localeKey;
+        }
 
-       return $this->guessLocaleKey();
+        return $this->guessLocaleKey();
     }
 
     public function guessLocaleKey()
@@ -67,7 +67,7 @@ class Request extends SymfonyRequest
     public function getPath()
     {
         if ($this->path) {
-           return $this->path;
+            return $this->path;
         }
 
         if ($path = $this->attributes->get('path')) {
@@ -84,7 +84,7 @@ class Request extends SymfonyRequest
 
     public function getSiteManager() : SiteManager
     {
-       return $this->siteManager;
+        return $this->siteManager;
     }
 
     public function getLocaleMode()
@@ -94,6 +94,5 @@ class Request extends SymfonyRequest
 
     public function getApp()
     {
-
     }
 }

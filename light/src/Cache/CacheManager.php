@@ -15,26 +15,26 @@ class CacheManager
 
     public function connect($name)
     {
-       if (isset($this->cnns[$name])) {
-          return $this->cnns[$name];
-       }
+        if (isset($this->cnns[$name])) {
+            return $this->cnns[$name];
+        }
 
-       if (!$opts = prop($this->opts, $name)) {
-           throw new \Exception("cannot find config for cache [$name]");
-       }
+        if (!$opts = prop($this->opts, $name)) {
+            throw new \Exception("cannot find config for cache [$name]");
+        }
 
-       if ('redis' === prop($opts, 'adapter', 'redis')) {
-           $host = prop($opts, 'host', '127.0.0,1');
-           $port = prop($opts, 'port', 6379);
-           $database = prop($opts, 'database', 0);
+        if ('redis' === prop($opts, 'adapter', 'redis')) {
+            $host = prop($opts, 'host', '127.0.0,1');
+            $port = prop($opts, 'port', 6379);
+            $database = prop($opts, 'database', 0);
 
-           $redis = new \Redis();
-           $redis->connect($host, $port);
-           $redis->select($database);
+            $redis = new \Redis();
+            $redis->connect($host, $port);
+            $redis->select($database);
 
-           $this->conns[$name] = $redis;
-       }
+            $this->conns[$name] = $redis;
+        }
 
-       return $this->conns[$name];
+        return $this->conns[$name];
     }
 }

@@ -7,7 +7,7 @@ function var2file($targetPath, $var)
     file_put_contents(
         $targetPath,
         '<?php return ' . var_export($var, true) . ';'
-        );
+    );
 }
 
 function value($value)
@@ -88,7 +88,8 @@ function env($key, $default = null)
     return $value;
 }
 
-function toSfRequest($swRequest) {
+function toSfRequest($swRequest)
+{
     $query = $swRequest->get ?? [];
     $request = $swRequest->post ?? [];
     $cookie = $swRequest->cookie ?? [];

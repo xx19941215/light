@@ -18,16 +18,16 @@ trait OrderTrait
 
     public function orderByRaw($sql)
     {
-       $this->orders[] = $sql;
-       return $this;
+        $this->orders[] = $sql;
+        return $this;
     }
 
     public function buildOrderBySql()
     {
-       if (!$this->orders) {
-           return '';
-       }
+        if (!$this->orders) {
+            return '';
+        }
 
-       return ' ORDER BY ' . implode(', ', $this->orders);
+        return ' ORDER BY ' . implode(', ', $this->orders);
     }
 }

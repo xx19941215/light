@@ -31,7 +31,7 @@ class UpdateSqlBuilder extends SqlBuilder
         return $this;
     }
 
-    public function sets(array $values) : self 
+    public function sets(array $values) : self
     {
         foreach ($values as $key => $item) {
             $val = $item;

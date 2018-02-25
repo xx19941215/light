@@ -104,36 +104,35 @@ class Router
 
     public function routeInfo($routeName, $params = [], $mode = '', $method = '')
     {
-       $modes = ['ui', 'rest'];
-       $methods = ['GET', 'POST'];
+        $modes = ['ui', 'rest'];
+        $methods = ['GET', 'POST'];
 
-       if ($mode) {
-           $modes = [$mode];
-       }
+        if ($mode) {
+            $modes = [$mode];
+        }
 
-       if ($method) {
-           $methods = [$method];
-       }
+        if ($method) {
+            $methods = [$method];
+        }
 
-       if ($set = prop($this->routeMap, $routeName)) {
-           foreach ($modes as $mode) {
-               if ($sons = prop($set, $mode)) {
-                   foreach ($methods as $method) {
-                       if ($route = prop($sons, $method)) {
-                           $pattern = $route->getPattern();
-                           $site = $route->getSite();
-                           return [
+        if ($set = prop($this->routeMap, $routeName)) {
+            foreach ($modes as $mode) {
+                if ($sons = prop($set, $mode)) {
+                    foreach ($methods as $method) {
+                        if ($route = prop($sons, $method)) {
+                            $pattern = $route->getPattern();
+                            $site = $route->getSite();
+                            return [
                                'site' => $site,
                                'path' => $this->replaceRouteParameters($pattern, $params)
-                           ];
-                       }
-                   }
-               }
-           }
-       }
+                            ];
+                        }
+                    }
+                }
+            }
+        }
 
         throw new RouteNotFoundException("Route Not Found: $routeName");
-
     }
 
     protected function replaceRouteParameters($pattern, array &$params)
@@ -170,5 +169,4 @@ class Router
         }
         return $val;
     }
-
 }

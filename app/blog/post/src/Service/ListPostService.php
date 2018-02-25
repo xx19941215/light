@@ -12,7 +12,6 @@ class ListPostService extends ServiceBase
     {
         $this->listPostRepo = $listPostRepo;
         parent::__construct($app);
-
     }
 
     public function list()

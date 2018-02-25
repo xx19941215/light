@@ -16,17 +16,17 @@ class UrlManager
 
     public function url($site, $uri, $protocol = '')
     {
-       if (!$protocol) {
-           $protocol = $this->request->isSecure() ? 'https://' : 'http://';
-       }
+        if (!$protocol) {
+            $protocol = $this->request->isSecure() ? 'https://' : 'http://';
+        }
 
-       $host = $this->request->getSiteManager()->getHost($site);
+        $host = $this->request->getSiteManager()->getHost($site);
 
-       if ($uri[0] !== '/') {
-           $uri = '/' . $uri;
-       }
+        if ($uri[0] !== '/') {
+            $uri = '/' . $uri;
+        }
 
-       return $protocol . $host . $uri;
+        return $protocol . $host . $uri;
     }
 
     public function staticUrl($uri, $protocol = '')

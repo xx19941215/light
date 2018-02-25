@@ -93,7 +93,6 @@ trait RoutesRequest
         }
 
         return $this->call([$instance, $method]);
-
     }
 
     protected function parsePathInfo($pathInfo)

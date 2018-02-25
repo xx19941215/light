@@ -19,9 +19,9 @@ class SelectSqlBuilder extends SqlBuilder implements SelectSqlBuilderInterface
 
     public function listAssoc() : array
     {
-       $stmt = $this->buildSelectStmt();
-       $stmt->setFetchAssoc();
-       return $stmt->fetchAll();
+        $stmt = $this->buildSelectStmt();
+        $stmt->setFetchAssoc();
+        return $stmt->fetchAll();
     }
 
     public function listObj() : array
@@ -96,18 +96,18 @@ class SelectSqlBuilder extends SqlBuilder implements SelectSqlBuilderInterface
     
     public function fetchAssoc()
     {
-       $this->limit(1);
-       $stmt = $this->buildSelectStmt();
-       $stmt->setFetchAssoc();
-       return $stmt->fetchOne();
+        $this->limit(1);
+        $stmt = $this->buildSelectStmt();
+        $stmt->setFetchAssoc();
+        return $stmt->fetchOne();
     }
 
     public function fetchObjOne()
     {
-       $this->limit(1);
-       $stmt = $this->buildSelectStmt();
-       $stmt->setFetchObj();
-       return $stmt->fetchOne();
+        $this->limit(1);
+        $stmt = $this->buildSelectStmt();
+        $stmt->setFetchObj();
+        return $stmt->fetchOne();
     }
 
     protected function buildSelectStmt() : Statement

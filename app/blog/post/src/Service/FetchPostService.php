@@ -13,11 +13,11 @@ class FetchPostService extends ServiceBase
 
     public function fetchPrev(Post $post)
     {
-       return obj(new FetchPostRepo($this->getDmg()))->fetchPrev($post);
+        return obj(new FetchPostRepo($this->getDmg()))->fetchPrev($post);
     }
 
     public function fetchNext(Post $post)
     {
-       return obj(new FetchPostRepo($this->getDmg()))->fetchNext($post);
+        return obj(new FetchPostRepo($this->getDmg()))->fetchNext($post);
     }
 }

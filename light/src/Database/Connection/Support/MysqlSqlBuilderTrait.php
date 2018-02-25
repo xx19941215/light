@@ -17,9 +17,9 @@ trait MysqlSqlBuilderTrait
 
     public function update(...$tables)
     {
-       $usb = new UpdateSqlBuilder($this);
-       $usb->tables($tables);
-       return $usb;
+        $usb = new UpdateSqlBuilder($this);
+        $usb->tables($tables);
+        return $usb;
     }
 
     public function insert(...$tables)

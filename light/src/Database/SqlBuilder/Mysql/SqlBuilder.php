@@ -73,11 +73,10 @@ class SqlBuilder
 
     protected function buildStmt($sql) : Statement
     {
-       $stmt = $this->adapter->prepare($sql);
-       $stmt->bindValues($this->binder->getValues());
-       $stmt->bindParams($this->binder->getParams());
+        $stmt = $this->adapter->prepare($sql);
+        $stmt->bindValues($this->binder->getValues());
+        $stmt->bindParams($this->binder->getParams());
 
-       return $stmt;
+        return $stmt;
     }
-
 }

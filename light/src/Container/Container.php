@@ -88,7 +88,7 @@ class Container implements \ArrayAccess
             $dependency = $parameter->getClass();
             if (array_key_exists($parameter->name, $primitives)) {
                 $dependencies[] = $primitives[$parameter->name];
-            } else if (is_null($dependency)) {
+            } elseif (is_null($dependency)) {
                 $dependencies[] = null;
             } else {
                 $dependencies[] = $this->resolveClass($parameter);
@@ -199,6 +199,5 @@ class Container implements \ArrayAccess
     public function offsetUnset($key)
     {
         unset($this->bindings[$key], $this->instances[$key]);
-
     }
 }

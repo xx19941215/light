@@ -11,7 +11,6 @@ class FetchPostRepo extends RepoBase
             ->from('wp_posts')
             ->where('id', '=', $id)
             ->fetchModel(Post::class);
-
     }
 
     public function fetchPrev(Post $post)
@@ -24,7 +23,7 @@ class FetchPostRepo extends RepoBase
             ->orderBy('post_date', 'desc')
             ->limit(1);
 
-       return $this->dataSet($ssb, Post::class);
+        return $this->dataSet($ssb, Post::class);
     }
 
     public function fetchNext(Post $post)
@@ -37,6 +36,6 @@ class FetchPostRepo extends RepoBase
             ->orderBy('post_date', 'desc')
             ->limit(1);
 
-       return $this->dataSet($ssb, Post::class);
+        return $this->dataSet($ssb, Post::class);
     }
 }

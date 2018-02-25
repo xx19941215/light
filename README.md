@@ -173,7 +173,7 @@ $ssb = DB::select()
 return $this->dataSet($ssb, Post::class);
 ```
 
-在没有继承Repo的地方，可以通过`collect`函数使用。
+在没有继承Repo的地方，可以通过`collect`函数生成DataSet。
 
 输出文章标题列表
 ```php

@@ -28,14 +28,17 @@ trait RegistersExceptionHandlers
         register_shutdown_function(function () {
             $this->handleShutdown();
         });
-
     }
 
     protected function handleShutdown()
     {
         if (! is_null($error = error_get_last()) && $this->isFatalError($error['type'])) {
             $this->handleUncaughtException(new FatalErrorException(
-                $error['message'], $error['type'], 0, $error['file'], $error['line']
+                $error['message'],
+                $error['type'],
+                0,
+                $error['file'],
+                $error['line']
             ));
         }
     }

@@ -10,15 +10,14 @@ trait GroupTrait
         $group = $this->binder->toField($field);
         $this->groups[] = $group;
         return $this;
-
     }
 
     public function buildGroupBySql()
     {
-       if (!$this->groups) {
-           return '';
-       }
+        if (!$this->groups) {
+            return '';
+        }
 
-       return ' GROUP BY ' . implode(', ', $this->groups);
+        return ' GROUP BY ' . implode(', ', $this->groups);
     }
 }

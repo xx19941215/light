@@ -11,7 +11,7 @@ abstract class ServiceBase
 
     public function __construct(App $app)
     {
-       $this->app = $app;
+        $this->app = $app;
     }
 
     protected function getConfig() : Config

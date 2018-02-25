@@ -118,7 +118,9 @@ class App extends Container
         });
 
         $this->singleton('db.connection', function ($app, $name) {
-            if (count($name) == 0) $name = 'default';
+            if (count($name) == 0) {
+                $name = 'default';
+            }
             return $app->make('databaseManager')->connect($name);
         });
     }
@@ -141,7 +143,7 @@ class App extends Container
 
     protected function registerRouterManagerBindings()
     {
-        $this->singleton('routerManager', function() {
+        $this->singleton('routerManager', function () {
             return new RouterManager($this);
         });
     }
@@ -157,7 +159,7 @@ class App extends Container
 
     protected function registerUrlManagerBindings()
     {
-        $this->singleton('urlManager', function() {
+        $this->singleton('urlManager', function () {
             return new UrlManager($this->router, $this->make('request'));
         });
     }
@@ -273,5 +275,4 @@ class App extends Container
         'viewManager' => 'registerViewManagerBindings',
         'Psr\Log\LoggerInterface' => 'registerLogBindings',
     ];
-
 }

@@ -11,9 +11,10 @@ class BoundMethod
 
         return static::callBoundMethod($container, $callback, function () use ($container, $callback, $parameters) {
             return call_user_func_array(
-                $callback, static::getMethodDependencies($container, $callback, $parameters)
+                $callback,
+                static::getMethodDependencies($container, $callback, $parameters)
             );
-        } );
+        });
     }
 
     protected static function callClass($container, $target, array $parameters = [], $defaultMethod = null)
@@ -26,7 +27,9 @@ class BoundMethod
         }
 
         return static::call(
-            $container, [$container->make($segments[0]), $method], $parameters
+            $container,
+            [$container->make($segments[0]), $method],
+            $parameters
         );
     }
 
@@ -38,12 +41,12 @@ class BoundMethod
 
     protected static function getMethodDependencies($container, $callback, array $parameters = [])
     {
-       $dependencies = [];
-       foreach (static::getCallReflector($callback)->getParameters() as $parameter) {
-           static::addDependencyForCallParameter($container, $parameter, $parameters, $dependencies);
-       }
+        $dependencies = [];
+        foreach (static::getCallReflector($callback)->getParameters() as $parameter) {
+            static::addDependencyForCallParameter($container, $parameter, $parameters, $dependencies);
+        }
 
-       return array_merge($dependencies, $parameters);
+        return array_merge($dependencies, $parameters);
     }
 
     protected static function getCallReflector($callback)
@@ -71,6 +74,6 @@ class BoundMethod
 
     protected static function isCallableWithAtSign($callback)
     {
-       return is_string($callback) && strpos($callback, '@') !== false;
+        return is_string($callback) && strpos($callback, '@') !== false;
     }
 }

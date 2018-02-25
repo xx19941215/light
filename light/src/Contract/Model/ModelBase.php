@@ -19,7 +19,7 @@ abstract class ModelBase implements \JsonSerializable
         return get_object_vars($this);
     }
 
-    public function init ()
+    public function init()
     {
     }
 
@@ -89,20 +89,20 @@ abstract class ModelBase implements \JsonSerializable
 
     protected function setVar($key, $val)
     {
-       if (property_exists($this, $key)) {
-           $this->$key = $val;
-       }
+        if (property_exists($this, $key)) {
+            $this->$key = $val;
+        }
 
-       throw new \Exception("$key-not-exists-in" . get_class($this));
+        throw new \Exception("$key-not-exists-in" . get_class($this));
     }
 
     protected function callGet($method)
     {
-       if ($var = $this->extractVar($method)) {
-           return $this->$var;
-       }
+        if ($var = $this->extractVar($method)) {
+            return $this->$var;
+        }
 
-       return '';
+        return '';
     }
 
     protected function callSet($method, $args)

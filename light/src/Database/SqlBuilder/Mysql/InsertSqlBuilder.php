@@ -25,15 +25,15 @@ class InsertSqlBuilder extends SqlBuilder
     public function values(array $values): self
     {
         foreach ($values as $key => $item) {
-           $val = $item;
-           $type = 'str';
+            $val = $item;
+            $type = 'str';
 
-           if (is_array($item) && isset($item[1])) {
-               $val = $item[0];
-               $type = $item[1];
-           }
+            if (is_array($item) && isset($item[1])) {
+                $val = $item[0];
+                $type = $item[1];
+            }
 
-           $this->value($key, $val, $type);
+            $this->value($key, $val, $type);
         }
 
         return $this;

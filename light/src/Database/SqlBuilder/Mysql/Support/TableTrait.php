@@ -8,29 +8,29 @@ trait TableTrait
 
     public function table($table)
     {
-       if (is_array($table)) {
-          $this->tables[] = "`{$table[0]}` `{$table[1]}`";
-          $this->tableAliases[] = "`{$table[1]}`";
-          return;
-       }
+        if (is_array($table)) {
+            $this->tables[] = "`{$table[0]}` `{$table[1]}`";
+            $this->tableAliases[] = "`{$table[1]}`";
+            return;
+        }
 
-       $this->tables[] = "`$table`";
-       $this->tableAliases[] = "`$table`";
+        $this->tables[] = "`$table`";
+        $this->tableAliases[] = "`$table`";
     }
 
     public function tables($tables)
     {
-       foreach ($tables as $table) {
-           $this->table($table);
-       }
+        foreach ($tables as $table) {
+            $this->table($table);
+        }
 
-       return $this;
+        return $this;
     }
 
     public function from(...$tables)
     {
-       $this->tables($tables);
-       return $this;
+        $this->tables($tables);
+        return $this;
     }
 
     protected function buildTableSql()

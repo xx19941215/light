@@ -31,18 +31,18 @@ trait JoinTrait
 
     protected function join($type, $table, $left, $operate, $right)
     {
-       $arr = [];
-       $arr[] = $type;
-       $arr[] = 'JOIN';
+        $arr = [];
+        $arr[] = $type;
+        $arr[] = 'JOIN';
 
-       $arr[] = is_array($table) ? "`{$table[0]}` `{$table[1]}`" : $table;
+        $arr[] = is_array($table) ? "`{$table[0]}` `{$table[1]}`" : $table;
 
-       $arr[] = 'ON';
-       $arr[] = is_array($left) ? "`{$left[0]}` `{$left[1]}`" : $left;
-       $arr[] = $this->binder->toOp($operate);
-       $arr[] = is_array($right) ? "`{$right[0]}` `{$right[1]}`" : $right;
-       $this->joins[] = implode('', $arr);
+        $arr[] = 'ON';
+        $arr[] = is_array($left) ? "`{$left[0]}` `{$left[1]}`" : $left;
+        $arr[] = $this->binder->toOp($operate);
+        $arr[] = is_array($right) ? "`{$right[0]}` `{$right[1]}`" : $right;
+        $this->joins[] = implode('', $arr);
 
-       return $this;
+        return $this;
     }
 }

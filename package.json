@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:css": "./bin/build-css",
-    "build:js": "webpack"
+    "build:js": "webpack",
+    "phpcs": "./vendor/bin/phpcs --report=full --standard=psr2 --extensions=php app/ light/",
+    "lint": "npm run phpcs"
   },
   "repository": {
     "type": "git",
