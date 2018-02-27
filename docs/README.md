@@ -1,8 +1,8 @@
-# 从零开始一步步构建PHP框架
+# 从零开始一步步构建面向生产的PHP框架
 
 需要明确的是，造轮子是学习一门编程语言比较好的方式之一，而不是浪费时间。
 
-那怎样才能构建一个自己的PHP框架呢？大致流程如下：
+那怎样才能构建一个自己的面向生产的PHP框架呢？大致流程如下：
 
 ```
 　　　　
@@ -147,8 +147,14 @@ $this
         'Blog\Index\Ui\IndexController@show'
     );
 ```
+在Light中，默认支持多站点路由配置。可以在[`site.php`](https://github.com/xx19941215/light/blob/master/config/site.php)配置。在路由中可以
+使用`site`方法设定当前路由所属的站点。使用`access`方法规定当前路由的接入权限，Light支持`public`、`login`和`admin`以及更加精确的`acl`过滤方式。`get`设定当前路由可以使用GET方法访问，并可以设置访问路径，路由别名和最终的控制器。
 
 [app/blog/post/setting/router/post.php](https://github.com/xx19941215/light/blob/master/app/blog/post/setting/router/post.php)
+
+Light底层的路由基于[`nikic/fast-route`](https://github.com/nikic/FastRoute)实现。
+
+[light/src/Routing/Router.php](https://github.com/xx19941215/light/blob/master/light/src/Routing/Router.php)
 
 ## 对象关系映射
 
@@ -176,7 +182,9 @@ $ssb = DB::select()
             ->limit(15);
 ```
 
-返回[`DataSet`](https://github.com/xx19941215/light/blob/master/light/src/Database/DateSet.php)。
+返回[`DataSet`](https://github.com/xx19941215/light/blob/master/light/src/Database/DateSet.php)，DataSet实例将对`$ssb`返回的数据做一些简单的处理。
+
+[]()
 
 [app/blog/post/src/repo/ListPostRepo.php](https://github.com/xx19941215/light/blob/master/app/blog/post/src/Repo/ListPostRepo.php)
 
@@ -243,6 +251,35 @@ Light核心实(chao)现(xi)了一个小巧的服务容器。基本attributes和m
 - Service: 处理业务逻辑
 - View: 视图
 
+## View & Meta & Trans
+Light的视图层支持布局、组件等方式灵活的组织视图层结构，底层直接使用[`foil`](https://github.com/FoilPHP/Foil)实现，
+你可以在项目的`resource/views`文件夹下放置你的视图文件。
+
+Light在视图层支持每一个页面自定义国际化的`title`、`description`、`keywords`，也支持将其他文本作国际化的输出。
+
+[light/Meta/Meta.php](https://github.com/xx19941215/light/blob/master/light/src/Meta/Meta.php)
+
+## 前端构建
+
+Light使用`webpack`构建`Javascript`，使用`node-sass`编译`scss`文件生产前端样式文件。
+前端资源文件统一放置于`resource/assets`内。
+
+##### build步骤
+
+1.依赖安装
+```
+yarn install
+```
+
+2.前端构建脚本
+```
+npm run build:js
+npm run build:css
+```
+
+生成的资源文件将会保存在`public`文件夹下的相应目录进行公开访问。
+
+
 ## PHPUnit
 基于PHPUnit，Light将会持续完善测试。运行如下的命令即可开始
 ```php
@@ -288,3 +325,5 @@ class ConfigTest extends TestCase
 ```
 
 [light/tests/ConfigTest.php](https://github.com/xx19941215/light/blob/master/light/tests/Config/ConfigTest.php)
+
+

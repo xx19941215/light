@@ -5,8 +5,6 @@ use Light\Http\Request;
 use Light\Routing\Exceptions\RouteMethodNotAllowedException;
 use Light\Routing\Exceptions\RouteNotFoundException;
 use Light\Tool\IncludeTrait;
-use Light\Routing\AddRouteTrait;
-use Light\Routing\RouteCollector;
 use FastRoute\Dispatcher\GroupCountBased as Dispatcher;
 
 class Router
