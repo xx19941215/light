@@ -77,6 +77,8 @@ webpack.config.js [webpack配置文件]
 yarn.lock [yarn　lock文件]
 
 ```
+# 框架生命周期：
+![](http://blog.xiaoxiao.work/wp-content/uploads/2018/02/lifecycle.png)
 # 框架模块说明：
 
 ##  入口文件
@@ -251,6 +253,8 @@ Light核心实(chao)现(xi)了一个小巧的服务容器。基本attributes和m
 - Service: 处理业务逻辑
 - View: 视图
 
+[Service/FetchPostService.php](https://github.com/xx19941215/light/blob/master/app/blog/post/src/Service/FetchPostService.php)
+
 ## View & Meta & Trans
 Light的视图层支持布局、组件等方式灵活的组织视图层结构，底层直接使用[`foil`](https://github.com/FoilPHP/Foil)实现，
 你可以在项目的`resource/views`文件夹下放置你的视图文件。
@@ -264,7 +268,7 @@ Light在视图层支持每一个页面自定义国际化的`title`、`descriptio
 Light使用`webpack`构建`Javascript`，使用`node-sass`编译`scss`文件生产前端样式文件。
 前端资源文件统一放置于`resource/assets`内。
 
-##### build步骤
+### build步骤
 
 1.依赖安装
 ```
@@ -325,3 +329,5 @@ class ConfigTest extends TestCase
 ```
 
 [light/tests/ConfigTest.php](https://github.com/xx19941215/light/blob/master/light/tests/Config/ConfigTest.php)
+
+
