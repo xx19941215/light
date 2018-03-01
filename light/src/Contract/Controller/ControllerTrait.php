@@ -24,6 +24,8 @@ trait ControllerTrait
         if ($route = $request->getRoute()) {
             $this->params = $route->getParams();
         }
+
+        $this->bootstrap();
     }
 
     public function bootstrap()

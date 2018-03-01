@@ -8,10 +8,9 @@ class ListPostService extends ServiceBase
 {
     protected $listPostRepo;
 
-    public function __construct(App $app, ListPostRepo $listPostRepo)
+    public function __construct(ListPostRepo $listPostRepo)
     {
         $this->listPostRepo = $listPostRepo;
-        parent::__construct($app);
     }
 
     public function list()

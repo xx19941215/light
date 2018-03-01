@@ -9,10 +9,9 @@ class FetchPostService extends ServiceBase
 {
     protected $fetchPostRepo;
 
-    public function __construct(App $app, FetchPostRepo $fetchPostRepo)
+    public function __construct(FetchPostRepo $fetchPostRepo)
     {
         $this->fetchPostRepo = $fetchPostRepo;
-        parent::__construct($app);
     }
 
     public function fetch($id)
