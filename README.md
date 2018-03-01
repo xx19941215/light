@@ -145,7 +145,7 @@ $this
         'Blog\Index\Ui\IndexController@show'
     );
 ```
-In Light, multi site routing configuration is supported by default. It can be configured in [`site.php`] (https://github.com/xx19941215/light/blob/master/config/site.php). Can be used in routing
+In Light, multi site routing configuration is supported by default. It can be configured in [`site.php`](https://github.com/xx19941215/light/blob/master/config/site.php). Can be used in routing
 
 Use the `site` method to set the site that the current.
   
@@ -181,7 +181,7 @@ $ssb = DB::select()
             ->limit(15);
 ```
 
-Returns [`DataSet`] (https://github.com/xx19941215/light/blob/master/light/src/Database/DateSet.php) and the DataSet instance will do some simple processing of the data returned by` $ ssb` .
+Returns [`DataSet`](https://github.com/xx19941215/light/blob/master/light/src/Database/DateSet.php) and the DataSet instance will do some simple processing of the data returned by `$ssb` .
 
 []()
 
