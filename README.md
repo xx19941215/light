@@ -170,7 +170,7 @@ $ssb = $this->cnn->select()
             ->limit(15);
 ```
 
-In places that do not inherit from Repo, such as View, you can use the DB's [Facade] (https://github.com/xx19941215/light/blob/master/light/src/Support/Facades/DB.php)
+In places that do not inherit from Repo, such as View, you can use the DB's [Facade](https://github.com/xx19941215/light/blob/master/light/src/Support/Facades/DB.php)
 
 ```php
 $ssb = DB::select()
@@ -248,11 +248,12 @@ In Light, an App can consist of the following structure:
 - Controller: handles the presentation of data and views distributed by the Service
 - Service: Processing business logic
 - View: view
+
 [Service/FetchPostService.php](https://github.com/xx19941215/light/blob/master/app/blog/post/src/Service/FetchPostService.php)
 
 ## View & Meta & Trans
-Light's view layer supports layout, components and other flexible organizational view layer structure, the underlying directly using [`foil`] (https://github.com/FoilPHP/Foil) to achieve,
-You can place your view file in the project's resource / views folder.
+Light's view layer supports layout, components and other flexible organizational view layer structure, the underlying directly using [`foil`](https://github.com/FoilPHP/Foil) to achieve,
+You can place your view file in the project's resource/views folder.
 
 Light customizes the `title`,` description`, `keywords` for each page in the view layer, as well as supports internationalization of other text.
 [light/Meta/Meta.php](https://github.com/xx19941215/light/blob/master/light/src/Meta/Meta.php)
@@ -260,20 +261,20 @@ Light customizes the `title`,` description`, `keywords` for each page in the vie
 ## FrontEnd Module
 
 Light builds `Javascript` with` webpack` and compiles the `scss` file with` node-sass` to produce front-end style files.
-The front-end resource files are placed in `resource / assets`.
+The front-end resource files are placed in `resource/assets`.
 
 ### build steps
 
-Rely on the installation
-`` `
+1.Install the dependencies 
+```
 yarn install
-`` `
+```
 
-2. Front-end build script
-`` `
+2.FrontEnd build script
+```
 npm run build: js
 npm run build: css
-`` `
+```
 
 Generated resource files will be stored in the `public` folder under the appropriate directory for public access.
 
@@ -321,6 +322,3 @@ class ConfigTest extends TestCase
 ```
 
 [light/tests/ConfigTest.php](https://github.com/xx19941215/light/blob/master/light/tests/Config/ConfigTest.php)
-
-
-
