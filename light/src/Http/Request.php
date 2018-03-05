@@ -61,6 +61,13 @@ class Request extends SymfonyRequest
     public function getSite()
     {
         $host = $this->getHost();
+
+        $port = $this->getPort();
+
+        if ($port != 80) {
+            $host = $host . ':' . $port;
+        }
+
         return $this->siteManager->getSite($host);
     }
 
