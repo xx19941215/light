@@ -5,6 +5,7 @@ use Light\Http\Request;
 use Light\Routing\Exceptions\RouteMethodNotAllowedException;
 use Light\Routing\Exceptions\RouteNotFoundException;
 use Light\Tool\IncludeTrait;
+use Light\Support\Arr;
 use FastRoute\Dispatcher\GroupCountBased as Dispatcher;
 
 class Router
@@ -133,38 +134,13 @@ class Router
         throw new RouteNotFoundException("Route Not Found: $routeName");
     }
 
-    protected function replaceRouteParameters($pattern, array &$params)
+    protected function replaceRouteParameters($pattern, array &$parameters)
     {
-        if ($params) {
-            $pattern = $this->pregReplaceSub(
-                '/\{.*?\}/',
-                $params,
-                $this->replaceNamedParameters($pattern, $params)
-            );
-        }
-        return str_replace(['[', ']'], '', preg_replace('/\{.*?\?\}/', '', $pattern));
-    }
-
-    protected function pregReplaceSub($pattern, &$replacements, $subject)
-    {
-        return preg_replace_callback($pattern, function () use (&$replacements) {
-            return array_shift($replacements);
-        }, $subject);
-    }
-
-    protected function replaceNamedParameters($pattern, &$params)
-    {
-        return preg_replace_callback('/\{(.*?)\??\}/', function ($match) use (&$params) {
-            return isset($params[$match[1]]) ? $this->arrPull($params, $match[1]) : $match[0];
+        $path = preg_replace_callback('/\{(.*?)(:.*?)?(\{[0-9,]+\})?\}/', function ($m) use (&$parameters) {
+            return isset($parameters[$m[1]]) ? Arr::pull($parameters, $m[1]) : $m[0];
         }, $pattern);
-    }
 
-    protected function arrPull(&$arr, $key, $default = null)
-    {
-        $val = prop($arr, $key, $default);
-        if (isset($arr[$key])) {
-            unset($arr[$key]);
-        }
-        return $val;
+
+        return $path;
     }
 }
