@@ -1,0 +1,35 @@
+{
+    "name": "xx19941215/light-framework",
+    "license": "MIT",
+    "config": {
+        "vendor-dir": "vendor",
+        "secure-http": false
+    },
+    "authors": [
+        {
+            "name": "xiao",
+            "email": "xx19931215@gmail.com"
+        }
+    ],
+    "require": {
+        "nikic/fast-route": "^1.0",
+        "symfony/http-foundation": "^3.2",
+        "foil/foil": "^0.6",
+        "filp/whoops": "^2.1",
+        "vlucas/phpdotenv": "~2.2",
+        "symfony/debug": "^4.0",
+        "symfony/console": "^4.0",
+        "monolog/monolog": "~1.12"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "*",
+        "phpunit/phpunit": "^6.0"
+    },
+    "autoload": {
+        "psr-4": {
+        },
+        "files": [
+            "src/Support/functions.php"
+        ]
+    }
+}
