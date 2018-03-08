@@ -26,14 +26,14 @@
     },
     "autoload": {
         "psr-4": {
-            "Light\\": "light/src",
+            "Light\\": "light-framework/src",
             "Blog\\Auth\\": "app/blog/auth/src",
             "Blog\\Index\\": "app/blog/index/src",
             "Blog\\Post\\": "app/blog/post/src",
             "Blog\\Startup\\": "app/blog/startup/src"
         },
         "files": [
-            "light/src/Support/functions.php"
+            "light-framework/src/Support/functions.php"
         ]
     }
 }
