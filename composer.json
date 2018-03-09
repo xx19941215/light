@@ -27,7 +27,6 @@
     "autoload": {
         "psr-4": {
             "Light\\": "light-framework/src",
-            "Blog\\Auth\\": "app/blog/auth/src",
             "Blog\\Index\\": "app/blog/index/src",
             "Blog\\Post\\": "app/blog/post/src",
             "Blog\\Startup\\": "app/blog/startup/src"

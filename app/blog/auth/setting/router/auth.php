@@ -1,9 +1,0 @@
-<?php
-$this
-    ->site('www')
-    ->access('public')
-    ->get(
-        '/login',
-        'login',
-        'Blog\Auth\Ui\LoginController@show'
-    );
