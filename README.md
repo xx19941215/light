@@ -322,3 +322,144 @@ class ConfigTest extends TestCase
 ```
 
 [light/tests/ConfigTest.php](https://github.com/xx19941215/light/blob/master/light/tests/Config/ConfigTest.php)
+
+
+# How to use?
+
+1.Create project with composer
+```
+composer create-project xx19941215/light-project light-project  && cd light-project
+```
+
+2.Composer install && npm i
+```
+composer install && npm i
+```
+
+3.Nginx configuration, the following are examples. You should modify the project path and php-fpm configuration according to your environment.
+```
+server {
+    listen  80;
+    #listen [::]:80 ipv6only=on;
+    server_name www.light-project.test
+		static.light-projecr.test;
+    
+    #return 301 https://$server_name$request_uri;
+
+    index   index.php index.html;
+    root    /path/to/light-project/public;
+
+    access_log  /path/to/light-project/storage/logs/access.log.gz combined gzip;
+    error_log /path/to/light-project/storage/logs/error.log;
+
+    client_max_body_size 20M;
+
+    gzip  on;
+    gzip_min_length 1k;
+    gzip_buffers 4 16k;
+    gzip_http_version 1.0;
+    gzip_comp_level 6;
+    gzip_types  text/plain application/javascript application/x-javascript text/javascript text/xml text/css;
+    gzip_disable "MSIE [1-6]\.";
+    gzip_vary on;
+
+    location / {
+        try_files $uri $uri/ /index.php?$args;
+    }
+
+    location ~ \.php(/|$) {
+        try_files $uri = 404;
+        include fastcgi.conf;
+        fastcgi_connect_timeout 60;
+        fastcgi_send_timeout 180;
+        fastcgi_read_timeout 180;
+        fastcgi_buffer_size 128k;
+        fastcgi_buffers 4 256k;
+        fastcgi_busy_buffers_size 256k;
+        fastcgi_temp_file_write_size 256k;
+
+        fastcgi_index   index.php;
+        #fastcgi_pass   unix:/run/php/php7.0-fpm.sock;
+        fastcgi_pass    127.0.0.1:9000;
+
+        location ~ /\.ht {
+            deny all;
+        }
+    }
+}
+
+server { 
+    listen      80; 
+    server_name static.light-project.test; 
+ 
+    index index.html index.htm; 
+    root /path/to/light-project/public/static; 
+ 
+    access_log /path/to/light-project/storage/logs/static.access.log.gz combined gzip; 
+    error_log /path/to/light-project/storage/logs/static.error.log; 
+ 
+    client_max_body_size 20M; 
+ 
+    location / { 
+    } 
+ 
+    location ~* \.(eot|svg|ttf|woff|woff2)$ { 
+        if ($http_origin ~* '^https?://[^/]+\.light-project\.test$') { 
+            add_header Access-Control-Allow-Origin $http_origin; 
+        } 
+    } 
+ 
+    location ~ /\.ht { 
+        deny all; 
+    } 
+}
+```
+
+4.Hosts configuration.
+```
+127.0.0.1 www.light-project.test
+127.0.0.1 static.light-project.test
+```
+
+5.Copy .env.example to .env, config `APP_BASE_HOST` and database.
+```
+APP_DEBUG=true
+APP_BASE_HOST=light-project.test
+DB_HOST=localhost
+DB_USERNAME=root
+DB_PASSWORD=qwertyuiop
+DB_DATABASE=light
+CACHE_DRIVER=redis
+I18N=false
+```
+
+6.Make sure the services as follow are running.
+```
+redis
+mysql
+php-fpm
+nginx
+```
+
+7.Create meta table in your database.
+
+```sql
+CREATE TABLE `meta` (
+  `metaId` varbinary(21) NOT NULL,
+  `key` varchar(20) NOT NULL,
+  `localeKey` varchar(20) NOT NULL,
+  `value` varchar(20) NOT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `changed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`metaId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+```
+
+8.Open the browser and visit http://www.light-project.test/
+# TODO
+
+- Console Application
+- Database Migration
+- A Instant Message Application based on Light and Workman
+- Security
+- Session

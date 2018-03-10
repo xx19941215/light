@@ -331,3 +331,145 @@ class ConfigTest extends TestCase
 [light/tests/ConfigTest.php](https://github.com/xx19941215/light/blob/master/light/tests/Config/ConfigTest.php)
 
 
+# 如何使用?
+
+1.通过composer新建项目light-project
+```
+composer create-project xx19941215/light-project light-project  && cd light-project
+```
+
+2.安装前后端依赖
+```
+composer install && npm i
+```
+
+3.Nginx server 配置, 请根据你自己项目路径和PHP服务修改相关信息。
+```
+server {
+    listen  80;
+    #listen [::]:80 ipv6only=on;
+    server_name www.light-project.test
+		static.light-projecr.test;
+    
+    #return 301 https://$server_name$request_uri;
+
+    index   index.php index.html;
+    root    /path/to/light-project/public;
+
+    access_log  /path/to/light-project/storage/logs/access.log.gz combined gzip;
+    error_log /path/to/light-project/storage/logs/error.log;
+
+    client_max_body_size 20M;
+
+    gzip  on;
+    gzip_min_length 1k;
+    gzip_buffers 4 16k;
+    gzip_http_version 1.0;
+    gzip_comp_level 6;
+    gzip_types  text/plain application/javascript application/x-javascript text/javascript text/xml text/css;
+    gzip_disable "MSIE [1-6]\.";
+    gzip_vary on;
+
+    location / {
+        try_files $uri $uri/ /index.php?$args;
+    }
+
+    location ~ \.php(/|$) {
+        try_files $uri = 404;
+        include fastcgi.conf;
+        fastcgi_connect_timeout 60;
+        fastcgi_send_timeout 180;
+        fastcgi_read_timeout 180;
+        fastcgi_buffer_size 128k;
+        fastcgi_buffers 4 256k;
+        fastcgi_busy_buffers_size 256k;
+        fastcgi_temp_file_write_size 256k;
+
+        fastcgi_index   index.php;
+        #fastcgi_pass   unix:/run/php/php7.0-fpm.sock;
+        fastcgi_pass    127.0.0.1:9000;
+
+        location ~ /\.ht {
+            deny all;
+        }
+    }
+}
+
+server { 
+    listen      80; 
+    server_name static.light-project.test; 
+ 
+    index index.html index.htm; 
+    root /path/to/light-project/public/static; 
+ 
+    access_log /path/to/light-project/storage/logs/static.access.log.gz combined gzip; 
+    error_log /path/to/light-project/storage/logs/static.error.log; 
+ 
+    client_max_body_size 20M; 
+ 
+    location / { 
+    } 
+ 
+    location ~* \.(eot|svg|ttf|woff|woff2)$ { 
+        if ($http_origin ~* '^https?://[^/]+\.light-project\.test$') { 
+            add_header Access-Control-Allow-Origin $http_origin; 
+        } 
+    } 
+ 
+    location ~ /\.ht { 
+        deny all; 
+    } 
+}
+```
+
+4.Hosts 配置 
+```
+127.0.0.1 www.light-project.test
+127.0.0.1 static.light-project.test
+```
+
+5.复制.env.example 为.env, 配置 `APP_BASE_HOST` 和相关的数据库配置.
+```
+APP_DEBUG=true
+APP_BASE_HOST=light-project.test
+DB_HOST=localhost
+DB_USERNAME=root
+DB_PASSWORD=qwertyuiop
+DB_DATABASE=light
+CACHE_DRIVER=redis
+I18N=false
+```
+
+
+6.确保以下服务正常开启
+```
+redis
+mysql
+php-fpm
+nginx
+```
+
+
+7.在数据库中增加meta表.
+
+```sql
+CREATE TABLE `meta` (
+  `metaId` varbinary(21) NOT NULL,
+  `key` varchar(20) NOT NULL,
+  `localeKey` varchar(20) NOT NULL,
+  `value` varchar(20) NOT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `changed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`metaId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+```
+
+8.打开浏览器访问 http://www.light-project.test/
+
+# TODO
+
+- Console Application
+- Database Migration
+- A Instant Message Application based on Light and Workman
+- Security
+- Session
