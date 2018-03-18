@@ -1,13 +1,3 @@
-<p align="center">
-<a href="https://github.com/xx19941215/light-framework/releases"><img src="https://img.shields.io/github/issues/xx19941215/light-framework.svg"></a>
-<a href="https://github.com/xx19941215/light-framework/releases"><img src="https://img.shields.io/github/forks/xx19941215/light-framework.svg"></a>
-<a href="https://github.com/xx19941215/light-framework/releases"><img src="https://img.shields.io/github/stars/xx19941215/light-framework.svg"></a>
-<a href="https://github.com/xx19941215/light-framework/releases"><img src="https://img.shields.io/badge/php-7.0%2B-blue.svg""></a>
-<a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/cocoapods/l/AFNetworking.svg" alt="License"></a>
-</p>
-
-<p align="center"> <a href="./README.md">English</a>　<p>
-
 # 从零开始一步步构建面向生产的PHP框架
 
 需要明确的是，造轮子是学习一门编程语言比较好的方式之一，而不是浪费时间。
