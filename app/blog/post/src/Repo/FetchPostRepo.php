@@ -20,7 +20,7 @@ class FetchPostRepo extends RepoBase
             ->where('post_date', '>', $post->post_date)
             ->andWhere('post_status', '=', 'publish')
             ->andWhere('post_type', '=', 'post')
-            ->orderBy('post_date', 'desc')
+            ->orderBy('post_date', 'asc')
             ->limit(1);
 
         return $this->dataSet($ssb, Post::class);
@@ -33,7 +33,7 @@ class FetchPostRepo extends RepoBase
             ->where('post_date', '<', $post->post_date)
             ->andWhere('post_status', '=', 'publish')
             ->andWhere('post_type', '=', 'post')
-            ->orderBy('post_date', 'desc')
+            ->orderBy('post_date', 'asc')
             ->limit(1);
 
         return $this->dataSet($ssb, Post::class);
